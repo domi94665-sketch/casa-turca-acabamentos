@@ -6,14 +6,27 @@ import type { Project, Testimonial } from '@/lib/types';
 import { fallbackProjects, fallbackTestimonials } from '@/lib/mock-data';
 
 export default async function HomePage() {
-  const [projects, testimonials] = await Promise.all([
-    sanityClient.fetch<Project[]>(FEATURED_PROJECTS_QUERY),
-    sanityClient.fetch<Testimonial[]>(TESTIMONIALS_QUERY),
-  ]);
+  let projects: Project[] = fallbackProjects;
+  let testimonials: Testimonial[] = fallbackTestimonials;
 
-  const safeProjects = Array.isArray(projects) && projects.length ? projects : fallbackProjects;
-  const safeTestimonials =
-    Array.isArray(testimonials) && testimonials.length ? testimonials : fallbackTestimonials;
+  try {
+    const [fetchedProjects, fetchedTestimonials] = await Promise.all([
+      sanityClient.fetch<Project[]>(FEATURED_PROJECTS_QUERY),
+      sanityClient.fetch<Testimonial[]>(TESTIMONIALS_QUERY),
+    ]);
+
+    if (Array.isArray(fetchedProjects) && fetchedProjects.length) {
+      projects = fetchedProjects;
+    }
+    if (Array.isArray(fetchedTestimonials) && fetchedTestimonials.length) {
+      testimonials = fetchedTestimonials;
+    }
+  } catch (error) {
+    console.log('Sanity fetch failed, using fallback data');
+  }
+
+  const safeProjects = projects;
+  const safeTestimonials = testimonials;
 
   return (
     <div className="space-y-24 pb-24">
