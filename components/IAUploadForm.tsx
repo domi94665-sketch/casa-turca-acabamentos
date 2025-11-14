@@ -2,6 +2,7 @@
 
 import { useState, type ChangeEvent, useEffect } from 'react';
 import { FiUploadCloud, FiLoader } from 'react-icons/fi';
+import { supabaseBrowser } from '@/lib/supabase-browser';
 
 interface DesignResult {
   id: string;
@@ -72,9 +73,17 @@ export default function IAUploadForm() {
       setStatus('processing');
       const imageUrl = preview || 'https://via.placeholder.com/512'; // Use preview or placeholder
 
+      // Get session token and include in request
+      const { data: sessionData } = await supabaseBrowser.auth.getSession();
+      const session = (sessionData as any)?.session;
+      if (!session) {
+        throw new Error('User not authenticated. Please sign in to continue.');
+      }
+      const token = session.access_token;
+
       const processResponse = await fetch('/api/designer-ia/process', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           imageUrl,
           style: 'Luxury Modern',
@@ -90,7 +99,7 @@ export default function IAUploadForm() {
       // Step 3: Notify sales team
       await fetch('/api/designer-ia/notify', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           leadId,
           imageUrl,

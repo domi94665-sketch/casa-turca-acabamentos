@@ -10,8 +10,26 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+async function getUserFromAuthHeader(request: NextRequest) {
+  const auth = request.headers.get('authorization') || '';
+  const token = auth.startsWith('Bearer ') ? auth.split(' ')[1] : auth;
+  if (!token) return null;
+  try {
+    const { data, error } = await supabase.auth.getUser(token as string);
+    if (error) return null;
+    return data?.user || null;
+  } catch (err) {
+    return null;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
+    const user = await getUserFromAuthHeader(request);
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { name, email, phone } = await request.json();
 
     if (!name || !email || !phone) {
@@ -20,6 +38,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await supabase.from('designer_leads').insert([
       {
+        user_id: user.id,
         name,
         email,
         phone,

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import type { DesignerLead } from '@/lib/types';
+import { supabaseBrowser } from '@/lib/supabase-browser';
 
 const LeadSchema = z.object({
   name: z.string().min(2, 'Informe o seu nome completo.'),
@@ -32,6 +33,21 @@ export default function GatedForm() {
     setErrorMsg('');
     
     try {
+      // Ensure user is authenticated via Supabase
+      const { data: sessionData } = await supabaseBrowser.auth.getSession();
+      const session = (sessionData as any)?.session;
+
+      if (!session) {
+        // Send magic link to email
+        const { data: signData, error: signError } = await supabaseBrowser.auth.signInWithOtp({ email: data.email });
+        if (signError) throw signError;
+        setStatus('success');
+        setErrorMsg('Enviámos um link para o seu email. Confirme o acesso e volte aqui.');
+        return;
+      }
+
+      const token = session.access_token;
+
       const payload: DesignerLead = {
         name: data.name,
         email: data.email,
@@ -40,7 +56,7 @@ export default function GatedForm() {
 
       const response = await fetch('/api/designer-ia/save-lead', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify(payload),
       });
 

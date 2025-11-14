@@ -24,6 +24,14 @@ async function notifySalesTeam(leadName: string, leadEmail: string, imageUrl: st
 
 export async function POST(request: NextRequest) {
   try {
+    // Authenticate request
+    const auth = request.headers.get('authorization') || '';
+    const token = auth.startsWith('Bearer ') ? auth.split(' ')[1] : auth;
+    if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const { data: user, error: userErr } = await supabase.auth.getUser(token as string);
+    if (userErr || !user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     const { leadId, imageUrl, designOutput } = await request.json();
 
     if (!leadId || !imageUrl) {
