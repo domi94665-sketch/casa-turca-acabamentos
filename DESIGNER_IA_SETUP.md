@@ -84,6 +84,23 @@ SUPABASE_SERVICE_KEY=sua_chave_service_role
 REPLICATE_API_TOKEN=seu_token_replicate
 ```
 
+### 3.1 Criar bucket no Supabase Storage
+
+1. No painel do Supabase do seu projeto, vá a `Storage` → `Create new bucket`.
+2. Nomeie o bucket `designer-uploads`.
+3. Se planeia usar `getPublicUrl` no cliente, marque o bucket como `Public`.
+   - Se preferir manter privado, usaremos Signed URLs e será necessário um endpoint server-side para gerar as signed URLs.
+4. Opcional: configurar políticas RLS ou lifecycle rules conforme necessário.
+
+Exemplo de política (se quiser associar uploads apenas a utilizadores autenticados):
+
+```sql
+-- Apenas utilizadores autenticados podem inserir objetos (exemplo conceptual)
+-- Realizar controlo usando funções server-side e chave service_role
+```
+
+Observação: O código do cliente usa `supabaseBrowser.storage.from('designer-uploads')` e assume que o bucket existe.
+
 ### 4. Testar Fluxo Completo
 
 1. **Acesse a página Designer IA:**

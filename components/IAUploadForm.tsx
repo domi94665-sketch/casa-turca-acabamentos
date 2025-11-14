@@ -60,18 +60,31 @@ export default function IAUploadForm() {
     setErrorMsg('');
 
     try {
-      // Step 1: Upload file to Supabase Storage (or similar)
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('leadId', leadId);
+      // Step 1: Upload file to Supabase Storage
+      // File path: designer-uploads/{leadId}/{timestamp}-{filename}
+      const timestamp = Date.now();
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '-');
+      const path = `${leadId}/${timestamp}-${safeName}`;
 
-      // TODO: Implement actual file upload to Supabase storage
-      // For now, we'll simulate the upload
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { data: uploadData, error: uploadError } = await supabaseBrowser.storage
+        .from('designer-uploads')
+        .upload(path, file, { upsert: false });
+
+      if (uploadError) {
+        console.error('Supabase upload error:', uploadError);
+        throw new Error('Falha ao enviar ficheiro. Tente novamente.');
+      }
+
+      // Get public URL for processing (requires bucket to be public or use signed URL)
+      const { data: publicUrlData } = supabaseBrowser.storage.from('designer-uploads').getPublicUrl(path);
+      const uploadedUrl = publicUrlData?.publicUrl;
+      if (!uploadedUrl) {
+        throw new Error('Não foi possível obter a URL do ficheiro carregado.');
+      }
 
       // Step 2: Process with Replicate AI
       setStatus('processing');
-      const imageUrl = preview || 'https://via.placeholder.com/512'; // Use preview or placeholder
+      const imageUrl = uploadedUrl;
 
       // Get session token and include in request
       const { data: sessionData } = await supabaseBrowser.auth.getSession();
@@ -96,7 +109,7 @@ export default function IAUploadForm() {
 
       const { output } = await processResponse.json();
 
-      // Step 3: Notify sales team
+      // Step 3: Notify sales team and store result
       await fetch('/api/designer-ia/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
