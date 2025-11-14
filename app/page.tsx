@@ -11,8 +11,8 @@ export default async function HomePage() {
 
   try {
     const [fetchedProjects, fetchedTestimonials] = await Promise.all([
-      sanityClient.fetch<Project[]>(FEATURED_PROJECTS_QUERY),
-      sanityClient.fetch<Testimonial[]>(TESTIMONIALS_QUERY),
+      sanityClient.fetch<Project[]>(FEATURED_PROJECTS_QUERY).catch(() => null),
+      sanityClient.fetch<Testimonial[]>(TESTIMONIALS_QUERY).catch(() => null),
     ]);
 
     if (Array.isArray(fetchedProjects) && fetchedProjects.length) {
@@ -22,11 +22,11 @@ export default async function HomePage() {
       testimonials = fetchedTestimonials;
     }
   } catch (error) {
-    console.log('Sanity fetch failed, using fallback data');
+    console.log('Sanity fetch failed, using fallback data', error);
   }
 
-  const safeProjects = projects;
-  const safeTestimonials = testimonials;
+  const safeProjects = projects || fallbackProjects;
+  const safeTestimonials = testimonials || fallbackTestimonials;
 
   return (
     <div className="space-y-24 pb-24">
