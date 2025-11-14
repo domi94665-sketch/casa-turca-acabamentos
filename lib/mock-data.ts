@@ -2,19 +2,39 @@ import type { Category, Project, Testimonial } from './types';
 
 export const fallbackCategories: Category[] = [
   {
-    _id: 'category-residencial',
-    title: 'Residencial',
-    slug: { current: 'residencial' },
+    _id: 'category-cozinhas',
+    title: 'Cozinhas',
+    slug: { current: 'cozinhas' },
   },
   {
-    _id: 'category-hospitality',
-    title: 'Hospitality',
-    slug: { current: 'hospitality' },
+    _id: 'category-casas-de-banho',
+    title: 'Casas de Banho',
+    slug: { current: 'casas-de-banho' },
   },
   {
-    _id: 'category-corporativo',
-    title: 'Corporate',
-    slug: { current: 'corporativo' },
+    _id: 'category-pisos-ladrilhos',
+    title: 'Pisos & Ladrilhos',
+    slug: { current: 'pisos-ladrilhos' },
+  },
+  {
+    _id: 'category-sistemas-de-gesso-tectos',
+    title: 'Sistemas de Gesso & Tectos',
+    slug: { current: 'sistemas-de-gesso-tectos' },
+  },
+  {
+    _id: 'category-mobilario-e-carpintaria',
+    title: 'Mobiliário e Carpintaria',
+    slug: { current: 'mobilario-e-carpintaria' },
+  },
+  {
+    _id: 'category-instalacoes-tecnicas',
+    title: 'Instalações Técnicas',
+    slug: { current: 'instalacoes-tecnicas' },
+  },
+  {
+    _id: 'category-gestao-de-acabamentos',
+    title: 'Gestão de Acabamentos',
+    slug: { current: 'gestao-de-acabamentos' },
   },
 ];
 

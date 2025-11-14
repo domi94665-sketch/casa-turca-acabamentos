@@ -68,7 +68,7 @@ export const CATEGORIES_QUERY = groq`
     "mobilario-e-carpintaria",
     "instalacoes-tecnicas",
     "gestao-de-acabamentos"
-  ]] | order(title asc){
+  ]] | order(_createdAt asc){
     _id,
     title,
     slug
