@@ -13,20 +13,30 @@ interface ProjectPageProps {
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const projects = await sanityClient.fetch<Project[]>(ALL_PROJECTS_QUERY);
-  if (Array.isArray(projects) && projects.length) {
-    return projects.map((project) => ({ slug: project.slug.current }));
+  try {
+    const projects = await sanityClient.fetch<Project[]>(ALL_PROJECTS_QUERY);
+    if (Array.isArray(projects) && projects.length) {
+      return projects.map((project) => ({ slug: project.slug.current }));
+    }
+  } catch (error) {
+    console.log('Sanity fetch failed, using fallback data');
   }
 
   return fallbackProjects.map((project) => ({ slug: project.slug.current }));
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const projectResponse = await sanityClient.fetch<Project | null>(PROJECT_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  let projectFromCms: Project | null = null;
 
-  const projectFromCms = Array.isArray(projectResponse) ? null : projectResponse;
+  try {
+    const projectResponse = await sanityClient.fetch<Project | null>(PROJECT_BY_SLUG_QUERY, {
+      slug: params.slug,
+    });
+    projectFromCms = Array.isArray(projectResponse) ? null : projectResponse;
+  } catch (error) {
+    console.log('Sanity fetch failed for project, using fallback data');
+  }
+
   const project = projectFromCms ?? fallbackProjects.find((item) => item.slug.current === params.slug);
 
   if (!project) {
