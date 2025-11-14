@@ -17,7 +17,8 @@ type LeadFormData = z.infer<typeof LeadSchema>;
 
 export default function GatedForm() {
   const router = useRouter();
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState<string>('');
   const {
     register,
     handleSubmit,
@@ -28,16 +29,37 @@ export default function GatedForm() {
 
   const onSubmit = async (data: LeadFormData) => {
     setStatus('submitting');
-    const payload: DesignerLead = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-    };
+    setErrorMsg('');
+    
+    try {
+      const payload: DesignerLead = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      };
 
-    console.info('Enviar lead para Supabase', payload);
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setStatus('success');
-    router.push('/ferramenta-ia');
+      const response = await fetch('/api/designer-ia/save-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save lead');
+      }
+
+      setStatus('success');
+      // Store lead ID in session/localStorage for later use
+      const result = await response.json();
+      sessionStorage.setItem('leadId', result.data?.[0]?.id || '');
+      
+      setTimeout(() => router.push('/ferramenta-ia'), 1500);
+    } catch (err) {
+      console.error('Submission error:', err);
+      setErrorMsg(err instanceof Error ? err.message : 'Erro ao processar. Tente novamente.');
+      setStatus('error');
+    }
   };
 
   return (
@@ -78,12 +100,20 @@ export default function GatedForm() {
       <p className="text-xs text-charcoal/60">
         Ao enviar este formulário, consente que a Casa Turca trate os seus dados com a máxima confidencialidade para apresentar uma proposta personalizada.
       </p>
+      {status === 'error' && <p className="text-xs text-red-600">{errorMsg}</p>}
       <button
         type="submit"
-        disabled={status === 'submitting'}
-        className="w-full rounded-full border border-gold bg-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-charcoal shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-70"
+        disabled={status === 'submitting' || status === 'success'}
+        className={`w-full rounded-full border px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] shadow-xl transition ${
+          status === 'success'
+            ? 'border-green-500 bg-green-500 text-white'
+            : 'border-gold bg-gold text-charcoal hover:-translate-y-0.5 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-70'
+        }`}
       >
-        {status === 'submitting' ? 'A validar dados…' : 'Liberar Acesso à Ferramenta'}
+        {status === 'submitting' && 'A validar dados…'}
+        {status === 'success' && '✓ Acesso liberado!'}
+        {status === 'error' && 'Tentar novamente'}
+        {status === 'idle' && 'Liberar Acesso à Ferramenta'}
       </button>
     </form>
   );
