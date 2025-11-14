@@ -60,7 +60,15 @@ export const PROJECT_BY_SLUG_QUERY = groq`
 `;
 
 export const CATEGORIES_QUERY = groq`
-  *[_type == "category"] | order(title asc){
+  *[_type == "category" && slug.current in [
+    "cozinhas",
+    "casas-de-banho",
+    "pisos-ladrilhos",
+    "sistemas-de-gesso-tectos",
+    "mobilario-e-carpintaria",
+    "instalacoes-tecnicas",
+    "gestao-de-acabamentos"
+  ]] | order(title asc){
     _id,
     title,
     slug
