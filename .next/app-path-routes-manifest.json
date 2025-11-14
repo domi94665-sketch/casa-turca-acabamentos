@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/contactos/page": "/contactos",
+  "/designer-ia/page": "/designer-ia",
+  "/ferramenta-ia/page": "/ferramenta-ia",
+  "/page": "/",
+  "/portfolio/[slug]/page": "/portfolio/[slug]",
+  "/portfolio/page": "/portfolio"
+}

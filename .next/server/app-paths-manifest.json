@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/contactos/page": "app/contactos/page.js",
+  "/designer-ia/page": "app/designer-ia/page.js",
+  "/ferramenta-ia/page": "app/ferramenta-ia/page.js",
+  "/page": "app/page.js",
+  "/portfolio/[slug]/page": "app/portfolio/[slug]/page.js",
+  "/portfolio/page": "app/portfolio/page.js"
+}

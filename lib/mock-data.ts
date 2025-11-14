@@ -28,6 +28,7 @@ export const fallbackProjects: Project[] = [
     category: fallbackCategories[0],
     featuredImage: {
       asset: {
+        _ref: 'image-palacio-golden-featured',
         url: 'https://images.unsplash.com/photo-1560185008-5f0bb1866cab?auto=format&fit=crop&w=1600&q=80',
       },
       alt: 'Sala de estar dourada e luxuosa',
@@ -36,6 +37,7 @@ export const fallbackProjects: Project[] = [
       {
         _key: 'palacio-golden-1',
         asset: {
+          _ref: 'image-palacio-golden-1',
           url: 'https://images.unsplash.com/photo-1595421514283-ef52624120aa?auto=format&fit=crop&w=1200&q=80',
         },
         alt: 'Detalhe de mármore dourado',
@@ -43,6 +45,7 @@ export const fallbackProjects: Project[] = [
       {
         _key: 'palacio-golden-2',
         asset: {
+          _ref: 'image-palacio-golden-2',
           url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80',
         },
         alt: 'Quarto master com iluminação suave',
@@ -58,6 +61,7 @@ export const fallbackProjects: Project[] = [
     category: fallbackCategories[2],
     featuredImage: {
       asset: {
+        _ref: 'image-bosphorus-featured',
         url: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
       },
       alt: 'Lobby corporativo sofisticado',
@@ -66,6 +70,7 @@ export const fallbackProjects: Project[] = [
       {
         _key: 'bosphorus-1',
         asset: {
+          _ref: 'image-bosphorus-1',
           url: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=1200&q=80',
         },
         alt: 'Detalhes em metal dourado',
@@ -73,6 +78,7 @@ export const fallbackProjects: Project[] = [
       {
         _key: 'bosphorus-2',
         asset: {
+          _ref: 'image-bosphorus-2',
           url: 'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80',
         },
         alt: 'Sala de reuniões com vista',
@@ -88,6 +94,7 @@ export const fallbackProjects: Project[] = [
     category: fallbackCategories[1],
     featuredImage: {
       asset: {
+        _ref: 'image-hamam-featured',
         url: 'https://images.unsplash.com/photo-1523419409543-0c1df022bdd6?auto=format&fit=crop&w=1600&q=80',
       },
       alt: 'Spa com mármore e iluminação suave',
@@ -96,6 +103,7 @@ export const fallbackProjects: Project[] = [
       {
         _key: 'hamam-1',
         asset: {
+          _ref: 'image-hamam-1',
           url: 'https://images.unsplash.com/photo-1549187774-b4e9b0445b41?auto=format&fit=crop&w=1200&q=80',
         },
         alt: 'Piscina interna com iluminação dourada',
@@ -103,6 +111,7 @@ export const fallbackProjects: Project[] = [
       {
         _key: 'hamam-2',
         asset: {
+          _ref: 'image-hamam-2',
           url: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80',
         },
         alt: 'Sala de relaxamento com mosaicos turcos',
