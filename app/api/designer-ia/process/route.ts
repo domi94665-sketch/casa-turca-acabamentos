@@ -1,7 +1,12 @@
 import Replicate from 'replicate';
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
 const replicateToken = process.env.REPLICATE_API_TOKEN;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+
+const supabase = createClient(supabaseUrl || '', supabaseServiceKey || '');
 
 if (!replicateToken) {
   throw new Error('Missing REPLICATE_API_TOKEN');
