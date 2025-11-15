@@ -1,299 +1,171 @@
-'use client';
-
-import { useState } from 'react';
 import type { Metadata } from 'next';
 import SectionHeader from '@/components/SectionHeader';
-import Button from '@/components/Button';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Button } from '@/components/Button';
 
-export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
+export const metadata: Metadata = {
+  title: 'Contacto — Casa Turca Acabamentos',
+  description:
+    'Fale com a Casa Turca Acabamentos para projetos de interiores, móveis sob medida e gestão de obra premium em Angola.',
+  openGraph: {
+    title: 'Contacto — Casa Turca Acabamentos',
+    description:
+      'Agende uma reunião com a Casa Turca e conheça o processo premium com IA de design, mobiliário próprio e gestão chave na mão.',
+    url: 'https://www.casaturcaacabamentos.com/contacto',
+    siteName: 'Casa Turca Acabamentos',
+    locale: 'pt_PT',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contacto — Casa Turca Acabamentos',
+    description:
+      'Entre em contacto para transformar o seu espaço em um design de luxo sem stress.',
+  },
+};
 
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+const canais = [
+  {
+    title: 'Visita ao showroom',
+    description: 'Agende uma visita para conhecer materiais, mobiliário e a equipa Casa Turca.',
+    details: 'Av. Mortala Mohamed, Luanda. Atendimento com hora marcada.',
+  },
+  {
+    title: 'Consultoria digital',
+    description: 'Chamada de vídeo para clientes fora de Luanda ou no exterior.',
+    details: 'Apresentamos o processo, analisamos o espaço e definimos próximos passos.',
+  },
+];
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('loading');
-
-    // Simulating form submission
-    try {
-      // In production, send to your backend API
-      console.log('Formulário enviado:', formData);
-
-      // Simulate delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      setStatus('success');
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-
-      // Reset status after 3 seconds
-      setTimeout(() => setStatus('idle'), 3000);
-    } catch (error) {
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 3000);
-    }
-  };
-
+export default function ContactoPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f1115] via-[#050608] to-[#0b0d10]">
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-20 pb-20 px-6 md:pt-32 md:pb-32">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#1CA7A1]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#1CA7A1]/3 rounded-full blur-3xl" />
-
-        <div className="relative mx-auto max-w-6xl">
-          <div className="space-y-8">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-                Vamos Conversar
-              </p>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
-                Entre em Contacto
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
-                Estamos prontos para transformar seu espaço em design de luxo. Contacte-nos para uma consulta gratuita e personalizada.
-              </p>
-            </div>
-          </div>
+    <main className="bg-night text-white">
+      <section className="border-b border-white/5 bg-[radial-gradient(circle_at_top,_rgba(28,167,161,0.18),_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(212,175,55,0.12),_transparent_65%)]">
+        <div className="mx-auto max-w-5xl space-y-6 px-4 py-20 text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/60">Contacto Casa Turca</p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            Vamos falar sobre o seu próximo projeto premium.
+          </h1>
+          <p className="mx-auto max-w-3xl text-sm text-white/70 sm:text-base">
+            Conte-nos sobre o espaço, o objetivo e o orçamento disponível (a partir de 500.000 Kz). A nossa equipa prepara uma proposta personalizada com segurança e clareza.
+          </p>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Info */}
-            <div className="space-y-8">
+      <section className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.1fr,1fr]">
+          <div>
+            <SectionHeader
+              eyebrow="Formulário premium"
+              title="Conte-nos sobre o seu projeto."
+              description="Quanto mais detalhes partilhar, mais rápido conseguimos preparar um estudo personalizado."
+            />
+            <form className="mt-8 space-y-5 text-sm">
               <div>
-                <h2 className="text-3xl font-serif font-bold text-white mb-6">
-                  Informações de Contacto
-                </h2>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.2em] text-white/60">Nome completo</label>
+                <input
+                  className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-teal/70"
+                  placeholder="Nome e apelido"
+                  type="text"
+                />
               </div>
-
-              <div className="space-y-6">
-                <a
-                  href="tel:+244923000000"
-                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-[#1CA7A1]/10 transition duration-300"
-                >
-                  <Phone className="w-6 h-6 text-[#1CA7A1] flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-white font-semibold">Telefone</p>
-                    <p className="text-gray-400">+244 923 000 000</p>
-                    <p className="text-gray-500 text-sm">Seg-Sex: 09h - 18h</p>
-                  </div>
-                </a>
-
-                <a
-                  href="mailto:contacto@casaturca.ao"
-                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-[#1CA7A1]/10 transition duration-300"
-                >
-                  <Mail className="w-6 h-6 text-[#1CA7A1] flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-white font-semibold">Email</p>
-                    <p className="text-gray-400">contacto@casaturca.ao</p>
-                    <p className="text-gray-500 text-sm">Resposta em 24 horas</p>
-                  </div>
-                </a>
-
-                <div className="flex items-start gap-4 p-4 rounded-lg">
-                  <MapPin className="w-6 h-6 text-[#1CA7A1] flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-white font-semibold">Localização</p>
-                    <p className="text-gray-400">Luanda, Angola</p>
-                    <p className="text-gray-500 text-sm">Showroom disponível para agendamento</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick Links */}
-              <div className="pt-8 border-t border-[#1CA7A1]/10">
-                <h3 className="text-white font-semibold mb-4">Links Rápidos</h3>
-                <div className="space-y-2 text-sm">
-                  <a href="/servicos" className="text-[#1CA7A1] hover:text-[#D4AF37] transition">
-                    → Explorar Serviços
-                  </a>
-                  <a href="/ia-studio" className="text-[#1CA7A1] hover:text-[#D4AF37] transition block">
-                    → Experimentar IA Studio
-                  </a>
-                  <a href="/portfolio" className="text-[#1CA7A1] hover:text-[#D4AF37] transition block">
-                    → Ver Portfólio
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div>
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-6 p-8 rounded-xl border border-[#1CA7A1]/20 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent"
-              >
+              <div className="grid gap-5 md:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-white mb-3">
-                    Nome Completo
-                  </label>
+                  <label className="mb-2 block text-[11px] uppercase tracking-[0.2em] text-white/60">Telefone / WhatsApp</label>
                   <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300"
-                    placeholder="Seu nome completo"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-white mb-3">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300"
-                    placeholder="seu@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold text-white mb-3">
-                    Telefone
-                  </label>
-                  <input
+                    className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-teal/70"
+                    placeholder="+244..."
                     type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300"
-                    placeholder="+244 923 000 000"
                   />
                 </div>
-
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold text-white mb-3">
-                    Assunto
-                  </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    required
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white focus:border-[#1CA7A1] focus:outline-none transition duration-300"
-                  >
-                    <option value="">Selecione um assunto</option>
-                    <option value="moveis">Móveis Sob Medida</option>
-                    <option value="design">Design de Interiores</option>
-                    <option value="obra">Gestão de Obra</option>
-                    <option value="ia">IA Studio</option>
-                    <option value="outro">Outro Assunto</option>
+                  <label className="mb-2 block text-[11px] uppercase tracking-[0.2em] text-white/60">E-mail</label>
+                  <input
+                    className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-teal/70"
+                    placeholder="nome@empresa.com"
+                    type="email"
+                  />
+                </div>
+              </div>
+              <div className="grid gap-5 md:grid-cols-2">
+                <div>
+                  <label className="mb-2 block text-[11px] uppercase tracking-[0.2em] text-white/60">Tipo de espaço</label>
+                  <select className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-teal/70">
+                    <option>Apartamento</option>
+                    <option>Moradia</option>
+                    <option>Escritório</option>
+                    <option>Loja / Comercial</option>
+                    <option>Outro</option>
                   </select>
                 </div>
-
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-white mb-3">
-                    Mensagem
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300 resize-none"
-                    placeholder="Descreva seu projeto..."
+                  <label className="mb-2 block text-[11px] uppercase tracking-[0.2em] text-white/60">Localização</label>
+                  <input
+                    className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-teal/70"
+                    placeholder="Cidade / Condomínio"
+                    type="text"
                   />
                 </div>
-
-                {status === 'success' && (
-                  <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-sm">
-                    ✓ Obrigado! Receberemos em breve. Aguarde nosso contacto.
-                  </div>
-                )}
-
-                {status === 'error' && (
-                  <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-                    ✗ Ocorreu um erro. Por favor, tente novamente.
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="w-full px-8 py-4 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 disabled:opacity-50 text-white font-semibold rounded-lg transition duration-300 shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30"
-                >
-                  {status === 'loading' ? 'Enviando...' : 'Enviar Solicitação'}
-                </button>
-
-                <p className="text-xs text-gray-500 text-center">
-                  Responderemos sua solicitação no prazo de 24 horas.
-                </p>
-              </form>
+              </div>
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.2em] text-white/60">Objetivo do projeto</label>
+                <textarea
+                  rows={4}
+                  className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-teal/70"
+                  placeholder="Ex.: remodelar sala e cozinha, criar suíte master, renovar loja..."
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.2em] text-white/60">Orçamento estimado</label>
+                <input
+                  className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-teal/70"
+                  placeholder="A partir de 500.000 Kz"
+                  type="text"
+                />
+              </div>
+              <Button type="button">Enviar pedido de análise</Button>
+              <p className="text-[11px] text-white/55">
+                Após o envio, a nossa equipa entra em contacto em até 48 horas úteis para alinhar detalhes, solicitar fotos adicionais e agendar a visita técnica.
+              </p>
+            </form>
+          </div>
+          <div className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Canais de atendimento</p>
+            {canais.map((canal) => (
+              <div key={canal.title} className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-teal/70">{canal.title}</p>
+                <p className="mt-2 text-white/80">{canal.description}</p>
+                <p className="mt-2 text-xs text-white/60">{canal.details}</p>
+              </div>
+            ))}
+            <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-xs text-white/60">
+              <p className="font-semibold uppercase tracking-[0.2em] text-white/40">Contactos diretos</p>
+              <p className="mt-2 text-white/75">WhatsApp: +244 946 654 528</p>
+              <p className="text-white/75">E-mail: atendimento@casaturca.design</p>
+              <p className="mt-2 text-white/55">
+                Atendimento de segunda a sexta, das 9h às 18h. Respostas prioritárias para projetos em Luanda e principais cidades.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/5 to-[#050608]">
-        <div className="mx-auto max-w-4xl">
+      <section className="bg-midnight py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
           <SectionHeader
-            subtitle="Dúvidas Comuns"
-            title="Perguntas Frequentes"
-            centered
+            eyebrow="Dicas"
+            title="Como preparar o briefing perfeito."
+            description="Três pontos essenciais para acelerar a criação do seu design premium."
+            align="center"
           />
-
-          <div className="space-y-6">
-            {[
-              {
-                q: 'Qual é o prazo para iniciar um projeto?',
-                a: 'Após a consulta inicial e aprovação do design, geralmente iniciamos em 1-2 semanas. Os prazos dependem da complexidade e materiais necessários.',
-              },
-              {
-                q: 'Vocês trabalham com orçamentos específicos?',
-                a: 'Sim! Trabalhamos com qualquer orçamento. Na consulta, definimos as prioridades e criamos uma solução personalizada dentro de suas possibilidades.',
-              },
-              {
-                q: 'Como funciona a garantia?',
-                a: 'Todos os trabalhos têm garantia mínima de 2 anos. Materiais premium têm garantias mais extensas conforme fabricante.',
-              },
-              {
-                q: 'Posso usar o IA Studio sem contratar um projeto?',
-                a: 'Claro! O IA Studio está disponível para todos. É uma ferramenta gratuita para inspiração e visualização de designs.',
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-lg border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 transition duration-300"
-              >
-                <h4 className="text-white font-semibold mb-2">{item.q}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.a}</p>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {['Partilhe fotos e vídeos do espaço atual com boa iluminação.', 'Envie referências que traduzem o estilo desejado (Pinterest, Instagram).', 'Informe prazos importantes, como mudança ou inauguração.'].map((item) => (
+              <div key={item} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+                <p>{item}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

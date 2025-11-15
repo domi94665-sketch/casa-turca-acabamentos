@@ -1,28 +1,30 @@
-interface SectionHeaderProps {
-  subtitle?: string;
+import type { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
+
+type SectionHeaderProps = {
+  eyebrow?: string;
   title: string;
-  description?: string;
-  centered?: boolean;
-}
+  description?: ReactNode;
+  align?: 'left' | 'center';
+  className?: string;
+};
 
-export default function SectionHeader({
-  subtitle,
-  title,
-  description,
-  centered = true,
-}: SectionHeaderProps) {
-  const containerClass = centered ? 'text-center' : '';
-  const maxWidthClass = centered ? 'max-w-2xl mx-auto' : '';
-
+export default function SectionHeader({ eyebrow, title, description, align = 'left', className }: SectionHeaderProps) {
   return (
-    <div className={`${containerClass} mb-16 ${maxWidthClass}`}>
-      {subtitle && (
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-          {subtitle}
-        </p>
+    <div
+      className={cn(
+        'space-y-3',
+        align === 'center' ? 'text-center mx-auto max-w-3xl' : '',
+        className,
       )}
-      <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">{title}</h2>
-      {description && <p className="text-lg text-gray-300 leading-relaxed">{description}</p>}
+    >
+      {eyebrow ? (
+        <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">{eyebrow}</p>
+      ) : null}
+      <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl md:text-4xl">{title}</h2>
+      {description ? (
+        <p className="text-sm text-white/60 sm:text-base">{description}</p>
+      ) : null}
     </div>
   );
 }

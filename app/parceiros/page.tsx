@@ -1,164 +1,131 @@
 import type { Metadata } from 'next';
 import SectionHeader from '@/components/SectionHeader';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 
 export const metadata: Metadata = {
-  title: 'Parceiros | Casa Turca Acabamentos',
+  title: 'Parceiros — Casa Turca Acabamentos',
   description:
-    'Conheça nossa rede de arquitetos e designers premium que trabalham conosco.',
+    'Programa de parceria para arquitetos e designers. Execução precisa, mobiliário sob medida e gestão de obra Casa Turca.',
   openGraph: {
-    title: 'Parceiros | Casa Turca Acabamentos',
-    description: 'Nossa rede de parceiros premium em design e arquitetura.',
-    url: 'https://www.casaturca-acabamentos.com/parceiros',
+    title: 'Parceiros — Casa Turca Acabamentos',
+    description:
+      'Conte com a Casa Turca para executar projetos com fidelidade ao seu conceito e experiência premium para o cliente.',
+    url: 'https://www.casaturcaacabamentos.com/parceiros',
+    siteName: 'Casa Turca Acabamentos',
+    locale: 'pt_PT',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Parceiros — Casa Turca Acabamentos',
+    description:
+      'Parcerias estratégicas com arquitetos e designers para obras sem stress e resultados premium.',
   },
 };
 
-export default function PartnersPage() {
-  const partners = [
-    {
-      name: 'Studio Arquitecto Silva',
-      specialty: 'Design Residencial',
-      description: 'Especialistas em projetos residenciais de luxo com visão inovadora.',
-      icon: '🏢',
-    },
-    {
-      name: 'Arquitetos Premium Group',
-      specialty: 'Projetos Corporativos',
-      description: 'Soluções arquitetônicas para espaços corporativos e comerciais.',
-      icon: '🏭',
-    },
-    {
-      name: 'Interior Design Elite',
-      specialty: 'Consultoria Estética',
-      description: 'Design de interiores personalizado e consultoria estética premium.',
-      icon: '🎨',
-    },
-    {
-      name: 'Luanda Modern Design',
-      specialty: 'Conceito & Inovação',
-      description: 'Pioneiros em designs modernos e conceitos inovadores em Angola.',
-      icon: '✨',
-    },
-    {
-      name: 'Luxury Spaces',
-      specialty: 'Espaços Premium',
-      description: 'Especialistas em criação de espaços de luxo e exclusividade.',
-      icon: '👑',
-    },
-    {
-      name: 'Design Consultoria SA',
-      specialty: 'Gestão de Projetos',
-      description: 'Gerenciamento profissional e consultoria em projetos complexos.',
-      icon: '📊',
-    },
-  ];
+const beneficios = [
+  {
+    title: 'Execução fiel ao conceito',
+    description:
+      'Equipa técnica garante que cada detalhe seja respeitado, desde alinhamentos milimétricos até o acabamento final.',
+  },
+  {
+    title: 'Mobiliário e acabamentos integrados',
+    description:
+      'Produção própria de marcenaria, serralharia e estofos para entregar exatamente como foi desenhado.',
+  },
+  {
+    title: 'Gestão transparente',
+    description:
+      'Cronogramas partilhados, visitas técnicas agendadas e relatórios semanais com fotos e métricas.',
+  },
+];
 
+const entregas = [
+  'Projeto executivo detalhado com compatibilização de especialidades.',
+  'Coordenação de obra com reporting direto ao arquiteto.',
+  'Mockups e amostras para aprovação antes da produção.',
+  'Styling final e fotografia profissional para portefólio conjunto.',
+];
+
+export default function ParceirosPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f1115] via-[#050608] to-[#0b0d10]">
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-20 pb-20 px-6 md:pt-32 md:pb-32">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#1CA7A1]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#1CA7A1]/3 rounded-full blur-3xl" />
-
-        <div className="relative mx-auto max-w-6xl">
-          <div className="space-y-8">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-                Rede de Confiança
-              </p>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
-                Nossos Parceiros
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
-                Trabalhamos com os melhores arquitetos e designers de Luanda para garantir qualidade, inovação e excelência em cada projeto.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Parceiros Grid */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {partners.map((partner, idx) => (
-              <div
-                key={idx}
-                className="p-8 rounded-xl border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:from-[#1CA7A1]/10 transition duration-300"
-              >
-                <div className="text-4xl mb-4">{partner.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-2">{partner.name}</h3>
-                <p className="text-[#1CA7A1] text-sm font-semibold mb-3">{partner.specialty}</p>
-                <p className="text-gray-400 text-sm leading-relaxed">{partner.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Por que parceria */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/5 to-[#050608]">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader
-            subtitle="Benefícios"
-            title="Por que trabalhar com nossos parceiros"
-            centered
-          />
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Experiência Reconhecida',
-                desc: 'Profissionais com trajetória comprovada e projetos premiados em todo o país.',
-              },
-              {
-                title: 'Visão Inovadora',
-                desc: 'Sempre atualizados com tendências globais e adaptados ao contexto local.',
-              },
-              {
-                title: 'Equipa Integrada',
-                desc: 'Todos trabalham em sinergia para entregar projetos de máxima qualidade.',
-              },
-              {
-                title: 'Consultoria Premium',
-                desc: 'Atendimento personalizado e dedicação total ao seu projeto específico.',
-              },
-              {
-                title: 'Soluções Personalizadas',
-                desc: 'Cada projeto é único. Criamos soluções específicas para seu espaço.',
-              },
-              {
-                title: 'Garantia de Qualidade',
-                desc: 'Compromisso com excelência em cada fase do projeto e suporte contínuo.',
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-lg border border-[#1CA7A1]/20 hover:border-[#D4AF37]/50 transition duration-300"
-              >
-                <div className="w-2 h-2 rounded-full bg-[#D4AF37] mb-4" />
-                <h4 className="text-white font-semibold mb-2">{item.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Become Partner */}
-      <section className="relative py-20 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-            Quer fazer parte da nossa rede?
-          </h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Se você é um profissional de design ou arquitetura e acredita na excelência, vamos adorar conversar.
+    <main className="bg-night text-white">
+      <section className="border-b border-white/5 bg-[radial-gradient(circle_at_top,_rgba(28,167,161,0.16),_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(212,175,55,0.1),_transparent_65%)]">
+        <div className="mx-auto max-w-5xl space-y-6 px-4 py-20 text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/60">Programa de parceria</p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            O braço operacional de arquitetos e designers em Angola.
+          </h1>
+          <p className="mx-auto max-w-3xl text-sm text-white/70 sm:text-base">
+            Entregamos o seu projeto com rigor técnico, gestão eficiente e comunicação transparente. Enquanto cria, nós cuidamos de transformar o conceito em realidade.
           </p>
-          <Button href="/contacto" variant="primary">
-            Envie sua proposta
-          </Button>
+          <Button href="/contacto" className="justify-center">Marcar conversa estratégica</Button>
         </div>
       </section>
-    </div>
+
+      <section className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeader
+            eyebrow="Benefícios"
+            title="Porque colaborar com a Casa Turca."
+            description="Criamos relações de confiança com arquitetos e designers que procuram um parceiro sólido para executar projetos premium."
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {beneficios.map((beneficio) => (
+              <div key={beneficio.title} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-teal/80">{beneficio.title}</p>
+                <p className="mt-3 text-white/70">{beneficio.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/5 bg-midnight py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.2fr,1fr] md:items-center">
+          <div className="space-y-6">
+            <SectionHeader
+              eyebrow="Entregas"
+              title="O que garantimos em cada parceria."
+              description="Mantemos o seu nome na linha da frente. A Casa Turca atua como extensão da sua equipa, assegurando padrões premium."
+            />
+            <ul className="space-y-3 text-sm text-white/70">
+              {entregas.map((item) => (
+                <li key={item}>• {item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Como começamos</p>
+            <ol className="mt-4 space-y-3 text-xs text-white/60">
+              <li>1. Reunião de alinhamento para conhecer a sua metodologia.</li>
+              <li>2. Análise do portefólio e definição de padrões de qualidade.</li>
+              <li>3. Acordo de confidencialidade e condições comerciais.</li>
+              <li>4. Planeamento conjunto dos primeiros projetos.</li>
+            </ol>
+            <Button href="/contacto" className="mt-6 w-full justify-center">Iniciar parceria</Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-abyss py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeader
+            eyebrow="Suporte"
+            title="Serviços complementares para o seu cliente."
+            description="Podemos ficar em segundo plano ou atuar lado a lado nas reuniões. Defina como prefere trabalhar e ajustamos o formato."
+            align="center"
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {['Acompanhamento em reuniões com o cliente final.', 'Apoio na apresentação de renderizações e protótipos.', 'Gestão financeira da obra com relatórios partilhados.'].map((item) => (
+              <div key={item} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+                <p className="text-white/70">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

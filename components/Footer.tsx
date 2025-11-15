@@ -1,96 +1,78 @@
 import Link from 'next/link';
-import { Mail, Phone, MapPin } from 'lucide-react';
+
+const footerLinks = [
+  {
+    heading: 'Marca',
+    items: [
+      { label: 'Sobre a Casa Turca', href: '/sobre' },
+      { label: 'Serviços premium', href: '/servicos' },
+      { label: 'Portefólio', href: '/portfolio' },
+    ],
+  },
+  {
+    heading: 'Experiência',
+    items: [
+      { label: 'IA Studio', href: '/ia-studio' },
+      { label: 'Programa para parceiros', href: '/parceiros' },
+      { label: 'Contacto', href: '/contacto' },
+    ],
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#1CA7A1]/10 bg-gradient-to-b from-[#0b0d10] to-[#050608] text-gray-300">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <div className="space-y-4">
+    <footer className="border-t border-white/5 bg-midnight/95 text-white/70">
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid gap-10 md:grid-cols-[1.2fr,1fr]">
+          <div className="space-y-5">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1CA7A1] to-[#D4AF37] flex items-center justify-center font-bold text-white">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-teal to-gold text-sm font-semibold text-midnight shadow-lg">
                 CT
+              </span>
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-white/80">Casa Turca</p>
+                <p className="text-[11px] uppercase tracking-[0.24em] text-white/40">Acabamentos &amp; Design</p>
+              </div>
+            </div>
+            <p className="max-w-md text-sm text-white/60">
+              Transformamos o seu espaço em um design de luxo, sem stress. Projetos completos com móveis sob medida,
+              tecnologia de IA e gestão chave na mão para clientes exigentes em Luanda e nas principais cidades de Angola.
+            </p>
+            <div className="grid gap-3 text-[11px] uppercase tracking-[0.24em] text-white/50 sm:grid-cols-2">
+              <div>
+                <p className="text-white/40">Morada</p>
+                <p className="text-white/70">Av. Mortala Mohamed, Luanda</p>
               </div>
               <div>
-                <p className="font-bold text-white">Casa Turca</p>
-                <p className="text-xs text-[#1CA7A1]">Premium Acabamentos</p>
+                <p className="text-white/40">Contacto</p>
+                <p className="text-white/70">+244 946 654 528</p>
               </div>
             </div>
-            <p className="text-sm leading-relaxed text-gray-400">
-              Transformamos espaços em design de luxo, sem stress. Acabamentos premium, design inteligente, gestão total.
-            </p>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Navegação</h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/sobre" className="text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                  Sobre Nós
-                </Link>
-              </li>
-              <li>
-                <Link href="/servicos" className="text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                  Serviços
-                </Link>
-              </li>
-              <li>
-                <Link href="/portfolio" className="text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                  Portfólio
-                </Link>
-              </li>
-              <li>
-                <Link href="/ia-studio" className="text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                  IA Studio
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Recursos</h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/parceiros" className="text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                  Parceiros
-                </Link>
-              </li>
-              <li>
-                <Link href="/contacto" className="text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                  Contacto
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Contacto</h4>
-            <div className="space-y-3 text-sm">
-              <a href="tel:+244923000000" className="flex items-center gap-2 text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                <Phone size={16} />
-                +244 923 000 000
-              </a>
-              <a href="mailto:contacto@casaturca.ao" className="flex items-center gap-2 text-gray-400 hover:text-[#1CA7A1] transition duration-300">
-                <Mail size={16} />
-                contacto@casaturca.ao
-              </a>
-              <div className="flex items-start gap-2 text-gray-400">
-                <MapPin size={16} className="mt-0.5 flex-shrink-0" />
-                <span>Luanda, Angola</span>
+          <div className="grid gap-8 sm:grid-cols-2">
+            {footerLinks.map((column) => (
+              <div key={column.heading} className="space-y-3">
+                <h4 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/50">{column.heading}</h4>
+                <ul className="space-y-2 text-[13px] text-white/70">
+                  {column.items.map((item) => (
+                    <li key={item.href}>
+                      <Link className="transition hover:text-white" href={item.href}>
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* Divider */}
-        <div className="border-t border-[#1CA7A1]/10 py-8">
-          <p className="text-center text-xs text-gray-500">
-            © {new Date().getFullYear()} Casa Turca Acabamentos. Todos os direitos reservados.
-          </p>
+      <div className="border-t border-white/5 bg-black/60 py-4">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 text-[11px] text-white/45 md:flex-row">
+          <p>© {new Date().getFullYear()} Casa Turca Acabamentos. Todos os direitos reservados.</p>
+          <p>Luanda • Projetos premium para residências, escritórios e lojas.</p>
         </div>
       </div>
     </footer>

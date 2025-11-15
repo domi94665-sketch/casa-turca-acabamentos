@@ -1,510 +1,371 @@
-'use client';
+import type { Metadata } from 'next';
+import Hero from '@/components/Hero';
+import SectionHeader from '@/components/SectionHeader';
+import ServiceCard from '@/components/ServiceCard';
+import { Button } from '@/components/Button';
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { Mail, Phone, MapPin, ArrowRight, CheckCircle2 } from 'lucide-react';
+export const metadata: Metadata = {
+  title: 'Casa Turca Acabamentos — Landing oficial',
+  description:
+    'Landing page premium da Casa Turca Acabamentos. Projetos de interiores com móveis sob medida, IA de design e gestão total da obra em Luanda.',
+  openGraph: {
+    title: 'Casa Turca Acabamentos — Landing oficial',
+    description:
+      'Transformamos o seu espaço em um design de luxo, sem stress. Conheça serviços, IA exclusiva e portefólio da Casa Turca.',
+    url: 'https://www.casaturcaacabamentos.com/',
+    siteName: 'Casa Turca Acabamentos',
+    locale: 'pt_PT',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Casa Turca Acabamentos — Landing oficial',
+    description:
+      'Móveis sob medida, IA de design e gestão completa de obra para clientes premium em Angola.',
+  },
+};
+
+const services = [
+  {
+    eyebrow: 'Design & Consultoria',
+    title: 'Arquitetura de interiores focada no seu estilo.',
+    items: [
+      'Estudo completo de layout e ergonomia',
+      'Moodboards, paleta cromática e acabamentos',
+      'Renderizações fotorrealistas e vídeos 3D',
+      'Planeamento financeiro alinhado ao investimento',
+    ],
+  },
+  {
+    eyebrow: 'Mobiliário & Pavimento',
+    title: 'Produção própria para entregar como foi imaginado.',
+    items: [
+      'Móveis sob medida em madeira, MDF, inox e lacados',
+      'Teto falso, divisórias e iluminação embutida',
+      'Pavimentos em vinil, madeira engenheirada e pedra natural',
+      'Revestimentos premium, papel de parede e boiserie',
+    ],
+    accent: 'emerald' as const,
+  },
+  {
+    eyebrow: 'Gestão de Obra',
+    title: 'Chave na mão: coordenamos equipas, prazos e orçamento.',
+    items: [
+      'Cronograma executivo com milestones semanais',
+      'Supervisão técnica e qualidade em cada etapa',
+      'Serviços complementares de eletricidade e domótica',
+      'Pós-obra com ajustes finos e garantia de entrega',
+    ],
+    accent: 'gold' as const,
+  },
+];
+
+const processSteps = [
+  {
+    etapa: '1',
+    titulo: 'Diagnóstico & Inspiração',
+    texto:
+      'Levantamento presencial ou virtual, entendimento profundo do estilo de vida, prioridades e investimento pretendido.',
+  },
+  {
+    etapa: '2',
+    titulo: 'Proposta & Design',
+    texto:
+      'Estudo de layout, materiais, orçamentos e renderizações aprovadas consigo antes da produção.',
+  },
+  {
+    etapa: '3',
+    titulo: 'Execução & Gestão',
+    texto:
+      'Produção de mobiliário, coordenação de equipas e acompanhamento diário da obra por gestores seniores.',
+  },
+  {
+    etapa: '4',
+    titulo: 'Entrega & Pós-venda',
+    texto:
+      'Entrega com checklist premium, ajustes finais e suporte pós-obra para manter o padrão Casa Turca.',
+  },
+];
+
+const portfolioPreview = [
+  {
+    title: 'Residência premium • Talatona',
+    description: 'Conceito personalizado com mobiliário integrado, iluminação inteligente e acabamentos importados.',
+    location: 'Talatona',
+    backgroundClass: "bg-[url('https://images.pexels.com/photos/6585763/pexels-photo-6585763.jpeg?auto=compress&cs=tinysrgb&w=1200')]",
+  },
+  {
+    title: 'Penthouse vista mar • Luanda Sul',
+    description: 'Sala gourmet com marcenaria curva, perfis de LED e pedras naturais selecionadas.',
+    location: 'Luanda Sul',
+    backgroundClass: "bg-[url('https://images.pexels.com/photos/6585766/pexels-photo-6585766.jpeg?auto=compress&cs=tinysrgb&w=1200')]",
+  },
+  {
+    title: 'Centralidade do Kilamba • Escritório boutique',
+    description: 'Espaço corporativo com divisórias acústicas, mobiliário sob medida e identidade visual aplicada.',
+    location: 'Centralidade do Kilamba',
+    backgroundClass: "bg-[url('https://images.pexels.com/photos/6585758/pexels-photo-6585758.jpeg?auto=compress&cs=tinysrgb&w=1200')]",
+  },
+];
 
 export default function HomePage() {
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Formulário de contacto:', contactForm);
-    // Reset do form
-    setContactForm({ name: '', email: '', phone: '', message: '' });
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f1115] via-[#050608] to-[#0b0d10]">
-      {/* ===== HERO SECTION ===== */}
-      <section className="relative overflow-hidden pt-32 pb-20 px-6 md:pt-40 md:pb-32">
-        {/* Glow background elements */}
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#1CA7A1]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#1CA7A1]/3 rounded-full blur-3xl" />
+    <main className="bg-night text-white">
+      <Hero />
 
-        <div className="relative mx-auto max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left content */}
-            <div className="space-y-8 z-10">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#1CA7A1] mb-4">
-                  Premium Acabamentos & Design
-                </p>
-                <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight">
-                  Transformamos Espaços em Luxo
-                </h1>
-              </div>
-
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl">
-                Design de luxo, sem stress. Combinamos acabamentos premium, design de interiores personalizado e tecnologia IA para criar ambientes que elevam o padrão do seu estilo de vida.
-              </p>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 py-8 border-y border-[#1CA7A1]/20">
-                <div>
-                  <p className="text-3xl md:text-4xl font-bold text-[#D4AF37]">500+</p>
-                  <p className="text-sm text-gray-400 mt-2">Projetos Completos</p>
-                </div>
-                <div>
-                  <p className="text-3xl md:text-4xl font-bold text-[#D4AF37]">Chave na Mão</p>
-                  <p className="text-sm text-gray-400 mt-2">Gestão Total</p>
-                </div>
-                <div>
-                  <p className="text-3xl md:text-4xl font-bold text-[#D4AF37]">IA</p>
-                  <p className="text-sm text-gray-400 mt-2">Design Inteligente</p>
-                </div>
-              </div>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Link
-                  href="/designer-ia"
-                  className="px-8 py-4 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white font-semibold rounded-full transition duration-300 shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30 hover:-translate-y-1"
-                >
-                  Teste o Designer IA
-                </Link>
-                <button
-                  onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="px-8 py-4 border border-[#1CA7A1] text-[#1CA7A1] hover:bg-[#1CA7A1]/10 font-semibold rounded-full transition duration-300"
-                >
-                  Agendar Visita
-                </button>
-              </div>
-            </div>
-
-            {/* Right side - Premium image showcase */}
-            <div className="hidden lg:block relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1CA7A1]/20 to-[#D4AF37]/20 rounded-2xl blur-3xl" />
-              <div className="relative aspect-square rounded-2xl border border-[#1CA7A1]/30 overflow-hidden bg-gradient-to-br from-[#1CA7A1]/10 to-[#D4AF37]/10 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🏛️</div>
-                  <p className="text-[#1CA7A1] font-semibold">Portfólio Premium</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== SERVIÇOS SECTION ===== */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-              Serviços Premium
+      <section id="servicos" className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <SectionHeader
+              eyebrow="Serviços"
+              title="Soluções completas de acabamentos para quem exige excelência."
+              description="Da consultoria estratégica à execução chave na mão. Tudo com a assinatura Casa Turca, garantindo consistência estética, precisão técnica e tranquilidade total para si."
+            />
+            <p className="max-w-sm text-xs text-white/55">
+              Projetos a partir de 500.000 Kz asseguram materiais premium, gestão dedicada e equipas especializadas em ambientes de alto padrão.
             </p>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-              Soluções Completas de Design & Acabamentos
-            </h2>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Service 1 */}
-            <div className="group relative p-8 rounded-xl border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:from-[#1CA7A1]/10 transition duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1CA7A1]/0 to-[#D4AF37]/0 group-hover:from-[#1CA7A1]/5 group-hover:to-[#D4AF37]/5 rounded-xl transition duration-300" />
-              <div className="relative">
-                <div className="w-12 h-12 rounded-lg bg-[#1CA7A1]/20 flex items-center justify-center mb-4 text-2xl">📐</div>
-                <h3 className="text-xl font-semibold text-white mb-3">Móveis Sob Medida</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">
-                  Produção de móveis personalizados em madeira nobre, PVC e pladur. Desenho personalizado conforme a identidade do seu espaço.
-                </p>
-                <ul className="space-y-2 text-sm text-gray-500">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#1CA7A1]" />
-                    Madeira Premium
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#1CA7A1]" />
-                    Acabamentos Luxuosos
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Service 2 */}
-            <div className="group relative p-8 rounded-xl border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:from-[#1CA7A1]/10 transition duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1CA7A1]/0 to-[#D4AF37]/0 group-hover:from-[#1CA7A1]/5 group-hover:to-[#D4AF37]/5 rounded-xl transition duration-300" />
-              <div className="relative">
-                <div className="w-12 h-12 rounded-lg bg-[#1CA7A1]/20 flex items-center justify-center mb-4 text-2xl">🎨</div>
-                <h3 className="text-xl font-semibold text-white mb-3">Design de Interiores</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">
-                  Consultoria completa de design, paleta de cores, materiais e conceito estético alinhado à sua visão.
-                </p>
-                <ul className="space-y-2 text-sm text-gray-500">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#1CA7A1]" />
-                    Consultoria Personalizada
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#1CA7A1]" />
-                    Visualização 3D
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Service 3 */}
-            <div className="group relative p-8 rounded-xl border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:from-[#1CA7A1]/10 transition duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1CA7A1]/0 to-[#D4AF37]/0 group-hover:from-[#1CA7A1]/5 group-hover:to-[#D4AF37]/5 rounded-xl transition duration-300" />
-              <div className="relative">
-                <div className="w-12 h-12 rounded-lg bg-[#1CA7A1]/20 flex items-center justify-center mb-4 text-2xl">🏗️</div>
-                <h3 className="text-xl font-semibold text-white mb-3">Instalação & Montagem</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">
-                  Tetos falsos, pavimentação, ladrilho, pintura interior/exterior e instalações elétricas básicas. Qualidade garantida.
-                </p>
-                <ul className="space-y-2 text-sm text-gray-500">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#1CA7A1]" />
-                    Equipa Especializada
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#1CA7A1]" />
-                    Acabamento Premium
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== PROCESSO SECTION ===== */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/5 to-[#050608]">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-              Metodologia
-            </p>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">
-              Processo em 4 Passos
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              {
-                step: '1',
-                title: 'Consulta Inicial',
-                desc: 'Entendemos seus objetivos, estilo e necessidades. Avaliação do espaço e conceito preliminar.',
-              },
-              {
-                step: '2',
-                title: 'Design & Visualização',
-                desc: 'Criamos visualizações 3D com IA. Apresentamos opções de materiais e acabamentos premium.',
-              },
-              {
-                step: '3',
-                title: 'Aprovação & Produção',
-                desc: 'Finalização do design. Início da produção de móveis e seleção de materiais certificados.',
-              },
-              {
-                step: '4',
-                title: 'Montagem & Entrega',
-                desc: 'Instalação profissional de tudo. Garantia total e suporte pós-projeto para sua satisfação.',
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="relative">
-                <div className="flex flex-col h-full">
-                  <div className="w-16 h-16 rounded-full bg-[#1CA7A1] flex items-center justify-center text-white font-bold text-xl mb-6 shadow-lg shadow-[#1CA7A1]/30">
-                    {item.step}
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">{item.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed flex-grow">{item.desc}</p>
-                </div>
-                {idx < 3 && (
-                  <div className="hidden md:flex absolute top-8 -right-3 items-center justify-center">
-                    <ArrowRight className="w-6 h-6 text-[#D4AF37]" />
-                  </div>
-                )}
-              </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {services.map((service) => (
+              <ServiceCard key={service.eyebrow} {...service} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== IA DESIGNER SECTION ===== */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left side */}
-            <div className="order-2 lg:order-1">
-              <div className="relative aspect-square rounded-xl border border-[#1CA7A1]/30 overflow-hidden bg-gradient-to-br from-[#1CA7A1]/10 to-[#D4AF37]/10 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🤖</div>
-                  <p className="text-[#1CA7A1] font-semibold">Designer IA</p>
+      <section id="ia" className="border-b border-white/5 bg-midnight py-16 md:py-24">
+        <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 md:flex-row md:items-center">
+          <div className="md:w-1/2">
+            <SectionHeader
+              eyebrow="IA de Design"
+              title="Uma ferramenta exclusiva que entende a sua casa."
+              description="Envie uma foto do seu espaço e receba três variações de design alinhadas ao seu estilo, objetivos e orçamento. Um ponto de partida seguro para avançar com um projeto premium."
+            />
+            <ul className="mt-6 space-y-3 text-xs text-white/70">
+              <li>• Upload de fotos do ambiente atual com orientação da equipa.</li>
+              <li>• Sugestões de estilos, materiais e iluminação com curadoria humana.</li>
+              <li>• Orçamento estimado e possibilidades de execução em fases.</li>
+              <li>• Possibilidade de avançar diretamente para o projeto executivo Casa Turca.</li>
+            </ul>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-[11px] text-white/60">
+              <span className="rounded-full border border-teal/40 bg-teal/10 px-3 py-1 uppercase tracking-[0.22em] text-teal">
+                Exclusivo Casa Turca
+              </span>
+              <span>Mais clareza antes de investir. Mais confiança na hora de avançar.</span>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button href="/ia-studio" variant="primary">Simular ideias de design</Button>
+              <Button href="/contacto" variant="ghost" className="text-white/80 hover:text-white">
+                Falar com especialista
+              </Button>
+            </div>
+          </div>
+          <div className="md:w-1/2">
+            <div className="relative mx-auto max-w-md">
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-emerald-400/40 via-teal/10 to-cyan-400/40 opacity-60 blur-xl" />
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#050608] p-5 shadow-aurora">
+                <div className="mb-4 flex items-center justify-between text-[11px] text-white/60">
+                  <span className="uppercase tracking-[0.24em] text-teal">Casa Turca • IA Studio</span>
+                  <span className="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em]">
+                    Beta exclusivo
+                  </span>
+                </div>
+                <div className="rounded-2xl border border-dashed border-teal/40 bg-white/5 p-6 text-center">
+                  <p className="text-xs font-medium text-white/80">Arraste uma foto da sua sala aqui</p>
+                  <p className="mt-2 text-[11px] text-white/55">
+                    A IA sugere variações de design alinhadas ao seu estilo e orçamento. Escolha a favorita e transforme-a em projeto real.
+                  </p>
+                  <Button href="/ia-studio" className="mt-6 justify-center">Iniciar simulação</Button>
+                </div>
+                <div className="mt-5 grid gap-3 text-[11px] text-white/65 md:grid-cols-3">
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-teal">Estilo</p>
+                    <p className="mt-1 text-xs text-white">Moderno minimalista</p>
+                    <p className="mt-1 text-[10px] text-white/60">Linhas limpas, tons neutros e iluminação controlada.</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-teal">Orçamento</p>
+                    <p className="mt-1 text-xs text-white">A partir de 650.000 Kz</p>
+                    <p className="mt-1 text-[10px] text-white/60">Possibilidade de execução em fases estratégicas.</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-teal">Próximo passo</p>
+                    <p className="mt-1 text-xs text-white">Visita técnica agendada</p>
+                    <p className="mt-1 text-[10px] text-white/60">Equipe especializada transforma a proposta em obra.</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Right side */}
-            <div className="order-1 lg:order-2 space-y-8">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-                  Tecnologia Proprietária
-                </p>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
-                  Designer IA Exclusivo
-                </h2>
-              </div>
-
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Carregue uma foto do seu espaço e deixe a IA gerar sugestões de design com acabamentos premium. Visualize diferentes estilos, materiais e cores em segundos.
-              </p>
-
-              <ul className="space-y-4">
-                {[
-                  'Upload rápido de imagens',
-                  'Sugestões de design em tempo real',
-                  'Múltiplas opções de estilo',
-                  'Integração com portfólio físico',
-                  'Salve suas inspirações',
-                ].map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />
-                    <span className="text-gray-300">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Link
-                href="/designer-ia"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white font-semibold rounded-full transition duration-300 shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30 hover:-translate-y-1 w-fit"
-              >
-                Comece Agora <ArrowRight className="w-5 h-5" />
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== PARCERIAS SECTION ===== */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/3 to-[#050608]">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-              Rede de Confiança
-            </p>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-              Parcerias com Arquitetos Premium
-            </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Trabalhamos com os melhores arquitetos e designers de Luanda para garantir qualidade e inovação em cada projeto.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            {[
-              { name: 'Studio Arquitecto Silva', specialty: 'Design Residencial' },
-              { name: 'Arquitetos Premium Group', specialty: 'Projetos Corporativos' },
-              { name: 'Interior Design Elite', specialty: 'Consultoria Estética' },
-            ].map((partner, idx) => (
+      <section id="processo" className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeader
+            eyebrow="Processo"
+            title="Simples para si. Detalhado para nós."
+            description="Operamos com método concierge: comunicação constante, cronograma transparente e controle de qualidade rigoroso em cada disciplina."
+            align="left"
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-4">
+            {processSteps.map((step) => (
               <div
-                key={idx}
-                className="p-8 rounded-xl border border-[#1CA7A1]/20 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:border-[#D4AF37]/50 transition duration-300"
+                key={step.etapa}
+                className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 text-xs text-white/70"
               >
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1CA7A1] to-[#D4AF37] mx-auto mb-4" />
-                <h3 className="text-white font-semibold text-lg mb-2">{partner.name}</h3>
-                <p className="text-gray-400 text-sm">{partner.specialty}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/40">
+                    Etapa {step.etapa}
+                  </span>
+                  <span className="grid h-8 w-8 place-items-center rounded-full border border-teal/40 bg-teal/10 text-[11px] font-semibold text-teal">
+                    {step.etapa}
+                  </span>
+                </div>
+                <p className="text-sm font-semibold text-white">{step.titulo}</p>
+                <p className="text-[11px] text-white/70">{step.texto}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== CONTACT SECTION ===== */}
-      <section id="contact-section" className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-                  Entre em Contacto
-                </p>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
-                  Agende sua Visita Premium
-                </h2>
-              </div>
-
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Visite nosso showroom e conheça pessoalmente nossas soluções premium. Nossa equipa está pronta para transformar seu espaço.
-              </p>
-
-              <div className="space-y-6">
-                <a
-                  href="tel:+244923000000"
-                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-[#1CA7A1]/10 transition duration-300"
-                >
-                  <Phone className="w-6 h-6 text-[#1CA7A1] flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-white font-semibold">Telefone</p>
-                    <p className="text-gray-400">+244 923 000 000</p>
-                  </div>
-                </a>
-
-                <a
-                  href="mailto:contacto@casaturca.ao"
-                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-[#1CA7A1]/10 transition duration-300"
-                >
-                  <Mail className="w-6 h-6 text-[#1CA7A1] flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-white font-semibold">Email</p>
-                    <p className="text-gray-400">contacto@casaturca.ao</p>
-                  </div>
-                </a>
-
-                <div className="flex items-start gap-4 p-4 rounded-lg">
-                  <MapPin className="w-6 h-6 text-[#1CA7A1] flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-white font-semibold">Localização</p>
-                    <p className="text-gray-400">Luanda, Angola</p>
-                    <p className="text-gray-400 text-sm">Showroom disponível para agendamento</p>
-                  </div>
+      <section id="portfolio" className="border-b border-white/5 bg-midnight py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+            <SectionHeader
+              eyebrow="Portefólio"
+              title="Ambientes que contam histórias de luxo discreto."
+              description="Da zona sul de Luanda às principais centralidades, entregamos espaços residenciais e comerciais com assinatura Casa Turca."
+            />
+            <Button href="/portfolio" variant="secondary">
+              Ver galeria completa
+            </Button>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {portfolioPreview.map((item) => (
+              <div key={item.title} className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+                <div className={`h-52 w-full bg-cover bg-center transition duration-500 group-hover:scale-105 ${item.backgroundClass}`} />
+                <div className="space-y-2 px-5 py-4 text-sm text-white/70">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-teal/80">Projeto assinatura</p>
+                  <p className="text-white">{item.title}</p>
+                  <p className="text-xs">{item.description}</p>
                 </div>
               </div>
-            </div>
-
-            {/* Contact Form */}
-            <div>
-              <form
-                onSubmit={handleContactSubmit}
-                className="space-y-6 p-8 rounded-xl border border-[#1CA7A1]/20 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent"
-              >
-                <div>
-                  <label className="block text-sm font-semibold text-white mb-3">Nome</label>
-                  <input
-                    type="text"
-                    required
-                    value={contactForm.name}
-                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300"
-                    placeholder="Seu nome completo"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-white mb-3">Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={contactForm.email}
-                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300"
-                    placeholder="seu@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-white mb-3">Telefone</label>
-                  <input
-                    type="tel"
-                    required
-                    value={contactForm.phone}
-                    onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300"
-                    placeholder="+244 923 000 000"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-white mb-3">Mensagem</label>
-                  <textarea
-                    required
-                    value={contactForm.message}
-                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white placeholder-gray-500 focus:border-[#1CA7A1] focus:outline-none transition duration-300 resize-none"
-                    placeholder="Descreva seu projeto..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full px-8 py-4 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white font-semibold rounded-lg transition duration-300 shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30"
-                >
-                  Enviar Solicitação
-                </button>
-              </form>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== TESTIMONIALS SECTION ===== */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/5 to-[#050608]">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-              Testemunhos
+      <section id="parceiros" className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.2fr,1fr] md:items-center">
+          <div>
+            <SectionHeader
+              eyebrow="Para Arquitetos & Designers"
+              title="O parceiro operacional que executa o seu conceito com precisão."
+              description="Assumimos a gestão técnica e a execução integral do projeto, garantindo fidelidade ao conceito original, comunicação transparente e acabamentos impecáveis."
+            />
+            <ul className="mt-6 space-y-3 text-xs text-white/70">
+              <li>• Execução fiel ao projeto aprovado com o cliente.</li>
+              <li>• Comunicação técnica direta com o arquiteto responsável.</li>
+              <li>• Mobiliário planejado alinhado ao fluxo e ergonomia do espaço.</li>
+              <li>• Parcerias recorrentes com condições exclusivas.</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-teal/30 bg-teal/5 p-6 text-sm text-white/80">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Programa de parceria</p>
+            <p className="mt-3 text-base font-semibold text-white">
+              Queremos ser o seu parceiro operacional de confiança.
             </p>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">
-              O que nossos clientes dizem
-            </h2>
+            <p className="mt-3 text-[12px] text-white/70">
+              Fale connosco para construir uma colaboração contínua em que a Casa Turca assume a execução da obra enquanto
+              você mantém o foco na criação e na experiência do cliente.
+            </p>
+            <Button href="/parceiros" className="mt-6 w-full justify-center">Explorar parcerias</Button>
           </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                text: 'A Casa Turca transformou meu apartamento num oasis luxuoso. Profissionalismo impecável!',
-                name: 'João Silva',
-                role: 'Cliente - Condomínio Premium',
-              },
-              {
-                text: 'Excelente atendimento e qualidade de materiais. Recomendo para qualquer projeto premium.',
-                name: 'Maria Santos',
-                role: 'Arquiteta Parceira',
-              },
-              {
-                text: 'Designer IA inovador! Consegui visualizar meu espaço antes da execução final. Impressionante!',
-                name: 'Roberto Oliveira',
-                role: 'Cliente - Renovação Residencial',
-              },
-            ].map((testimonial, idx) => (
-              <div
-                key={idx}
-                className="p-8 rounded-xl border border-[#1CA7A1]/20 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:border-[#D4AF37]/50 transition duration-300"
-              >
-                <p className="text-gray-300 mb-6 leading-relaxed italic">"{testimonial.text}"</p>
-                <div>
-                  <p className="text-white font-semibold">{testimonial.name}</p>
-                  <p className="text-[#1CA7A1] text-sm">{testimonial.role}</p>
-                </div>
+      <section id="contacto" className="bg-midnight py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.1fr,1fr]">
+          <div>
+            <SectionHeader
+              eyebrow="Contacto"
+              title="Vamos falar sobre o seu próximo projeto."
+              description="Envie uma mensagem com a visão do espaço, objetivo do projeto e orçamento estimado. A nossa equipa responde com os próximos passos para avançarmos com segurança."
+            />
+            <div className="mt-6 grid gap-4 text-sm text-white/75 md:grid-cols-2">
+              <div className="space-y-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/40">Morada</p>
+                <p>Av. Mortala Mohamed</p>
+                <p>Luanda, Angola</p>
               </div>
-            ))}
+              <div className="space-y-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/40">Contacto</p>
+                <p>Tel/WhatsApp: <span className="font-mono">+244 946 654 528</span></p>
+              </div>
+            </div>
+            <p className="mt-6 text-[11px] text-white/55">
+              Projetos ideais: interiores residenciais e comerciais em condomínios e centralidades, com foco em clientes de renda média-alta e alta.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/80">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">
+              Formulário de interesse (modelo)
+            </p>
+            <form className="mt-4 space-y-4 text-xs">
+              <div>
+                <label className="mb-1 block text-[11px] uppercase tracking-[0.2em] text-white/60">Nome completo</label>
+                <input
+                  className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-teal/70"
+                  placeholder="Como devemos tratar você?"
+                  type="text"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-[11px] uppercase tracking-[0.2em] text-white/60">Telefone / WhatsApp</label>
+                <input
+                  className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-teal/70"
+                  placeholder="+244..."
+                  type="tel"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-[11px] uppercase tracking-[0.2em] text-white/60">Tipo de espaço</label>
+                <select className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-teal/70">
+                  <option>Apartamento</option>
+                  <option>Moradia</option>
+                  <option>Escritório</option>
+                  <option>Loja / Comercial</option>
+                  <option>Outro</option>
+                </select>
+              </div>
+              <div>
+                <label className="mb-1 block text-[11px] uppercase tracking-[0.2em] text-white/60">Objetivo do projeto</label>
+                <textarea
+                  rows={3}
+                  className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-teal/70"
+                  placeholder="Ex.: remodelar sala e cozinha, criar suíte master, renovar escritório..."
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-[11px] uppercase tracking-[0.2em] text-white/60">Orçamento estimado</label>
+                <input
+                  className="w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-teal/70"
+                  placeholder="A partir de 500.000 Kz"
+                  type="text"
+                />
+              </div>
+              <Button type="button" className="w-full justify-center">
+                Enviar pedido de análise
+              </Button>
+              <p className="text-[10px] text-white/55">
+                Ao enviar, a equipa entra em contacto para alinhar detalhes, solicitar fotos e sugerir a melhor forma de avançar com o seu projeto.
+              </p>
+            </form>
           </div>
         </div>
       </section>
-
-      {/* ===== CTA FINAL SECTION ===== */}
-      <section className="relative py-20 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-            Pronto para transformar seu espaço?
-          </h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Contacte-nos hoje e receba uma consulta premium personalizada. Estamos prontos para criar o design que você merece.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/designer-ia"
-              className="px-8 py-4 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white font-semibold rounded-full transition duration-300 shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30 hover:-translate-y-1"
-            >
-              Teste o Designer IA
-            </Link>
-            <button
-              onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 border border-[#1CA7A1] text-[#1CA7A1] hover:bg-[#1CA7A1]/10 font-semibold rounded-full transition duration-300"
-            >
-              Agendar Visita
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }

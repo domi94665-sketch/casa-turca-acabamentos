@@ -1,51 +1,65 @@
+'use client';
+
 import Link from 'next/link';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { forwardRef } from 'react';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import { cn } from '@/lib/utils';
 
-interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'outline';
-  href?: string;
-  onClick?: () => void;
-  children: React.ReactNode;
+const buttonVariants = cva(
+  'inline-flex items-center justify-center rounded-full font-semibold uppercase tracking-[0.22em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-night',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-teal text-midnight hover:bg-[#3bd7cf]',
+        secondary: 'bg-transparent border border-teal/50 text-teal hover:bg-teal/10',
+        ghost: 'bg-white/5 text-white hover:bg-white/10',
+      },
+      size: {
+        default: 'px-6 py-2.5 text-[11px]',
+        sm: 'px-4 py-2 text-[10px]',
+        lg: 'px-8 py-3 text-xs',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'default',
+    },
+  },
+);
+
+type ButtonAsButton = ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
+type ButtonAsLink = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+
+type ButtonProps = {
   className?: string;
-  disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-}
+} & VariantProps<typeof buttonVariants> & (ButtonAsButton | ButtonAsLink);
 
-export default function Button({
-  variant = 'primary',
-  href,
-  onClick,
-  children,
-  className = '',
-  disabled = false,
-  type = 'button',
-}: ButtonProps) {
-  const baseStyles =
-    'px-8 py-4 font-semibold rounded-full transition duration-300 inline-flex items-center justify-center gap-2';
+const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+  ({ className, variant, size, href, ...props }, ref) => {
+    const composedClassName = cn(buttonVariants({ variant, size }), className);
 
-  const variants = {
-    primary: 'bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30 hover:-translate-y-1',
-    secondary: 'bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#0f1115] shadow-lg shadow-[#D4AF37]/20 hover:shadow-xl hover:shadow-[#D4AF37]/30',
-    outline: 'border border-[#1CA7A1] text-[#1CA7A1] hover:bg-[#1CA7A1]/10',
-  };
+    if (href) {
+      return (
+        <Link
+          ref={ref as never}
+          href={href}
+          className={composedClassName}
+          {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}
+        />
+      );
+    }
 
-  const combinedClasses = `${baseStyles} ${variants[variant]} ${className}`;
-
-  if (href) {
     return (
-      <Link href={href} className={combinedClasses}>
-        {children}
-      </Link>
+      <button
+        ref={ref as never}
+        className={composedClassName}
+        {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
+      />
     );
-  }
+  },
+);
 
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={`${combinedClasses} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-    >
-      {children}
-    </button>
-  );
-}
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };

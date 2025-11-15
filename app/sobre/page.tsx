@@ -1,156 +1,154 @@
 import type { Metadata } from 'next';
 import SectionHeader from '@/components/SectionHeader';
-import Button from '@/components/Button';
-import ServiceCard from '@/components/ServiceCard';
-import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/Button';
 
 export const metadata: Metadata = {
-  title: 'Sobre Casa Turca | Historia & Missão',
+  title: 'Sobre — Casa Turca Acabamentos',
   description:
-    'Conheça a história, missão e valores da Casa Turca. Design premium com raízes turcas e inovação angolana.',
+    'Conheça a história, missão e valores da Casa Turca Acabamentos. Design premium com raiz turca e execução impecável em Angola.',
   openGraph: {
-    title: 'Sobre Casa Turca | Historia & Missão',
-    description: 'Conheça a história da Casa Turca Acabamentos.',
-    url: 'https://www.casaturca-acabamentos.com/sobre',
+    title: 'Sobre — Casa Turca Acabamentos',
+    description:
+      'Descubra como a Casa Turca combina artesanato, tecnologia e gestão para entregar projetos de luxo sem stress.',
+    url: 'https://www.casaturcaacabamentos.com/sobre',
+    siteName: 'Casa Turca Acabamentos',
+    locale: 'pt_PT',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sobre — Casa Turca Acabamentos',
+    description:
+      'Somos especialistas em design de luxo com móveis sob medida, IA de design e gestão chave na mão.',
   },
 };
 
-export default function AboutPage() {
+const valores = [
+  {
+    title: 'Precisão artesanal',
+    description:
+      'Cada detalhe é fabricado, testado e instalado por especialistas que combinam técnicas turcas com padrões europeus.',
+  },
+  {
+    title: 'Tecnologia a favor da estética',
+    description:
+      'Renderizações hiper-realistas, geminação digital com IA e acompanhamento remoto da obra para tomada de decisão rápida.',
+  },
+  {
+    title: 'Experiência concierge',
+    description:
+      'Planeamos, coordenamos e comunicamos cada etapa com clareza. Os clientes acompanham o progresso sem lidar com imprevistos.',
+  },
+];
+
+export default function SobrePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f1115] via-[#050608] to-[#0b0d10]">
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-20 pb-20 px-6 md:pt-32 md:pb-32">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#1CA7A1]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#1CA7A1]/3 rounded-full blur-3xl" />
+    <main className="bg-night text-white">
+      <section className="border-b border-white/5 bg-[radial-gradient(circle_at_top,_rgba(28,167,161,0.18),_transparent_60%),_radial-gradient(circle_at_bottom,_rgba(212,175,55,0.1),_transparent_65%)]">
+        <div className="mx-auto max-w-5xl space-y-6 px-4 py-20 text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/60">Sobre a Casa Turca</p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            Uma casa angolana com alma turca e foco em resultados impecáveis.
+          </h1>
+          <p className="mx-auto max-w-3xl text-sm text-white/70 sm:text-base">
+            Somos um atelier premium de acabamentos e interiores sediado em Luanda. Aliamos herança estética do Bósforo,
+            tecnologia proprietária e uma equipa multidisciplinar para entregar ambientes que traduzem o estilo dos nossos clientes.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 text-[11px] uppercase tracking-[0.24em] text-white/60">
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Fundada em 2018</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Estúdio &amp; fábrica própria em Luanda</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Equipe de arquitetos, designers e engenheiros</span>
+          </div>
+        </div>
+      </section>
 
-        <div className="relative mx-auto max-w-6xl">
+      <section className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.3fr,1fr] md:items-start">
           <div className="space-y-8">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-                Nossa História
+            <SectionHeader
+              eyebrow="História"
+              title="Da tradição turca à sofisticação angolana."
+              description="A fundadora cresceu entre ateliers familiares em Istambul, onde aprendeu a valorizar materiais nobres e processos manuais. Em Luanda, encontrou clientes que partilhavam o desejo por espaços memoráveis e sem complicações."
+            />
+            <div className="space-y-6 text-sm text-white/70">
+              <p>
+                A Casa Turca nasceu com a missão de entregar interiores de luxo sem o stress tradicional das obras. Reunimos
+                num único lugar consultoria estética, produção própria de mobiliário, aplicação de acabamentos e gestão de obra.
               </p>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
-                De Istambul a Luanda
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
-                A Casa Turca nasce da fusão entre a tradição artesanal turca e o dinamismo angolano. Trazemos acabamentos premium e design inteligente para transformar espaços em experiências de luxo.
+              <p>
+                Hoje, atendemos residências e empresas que buscam ambientes exclusivos. Operamos com cronogramas rigorosos,
+                comunicação transparente e uma equipa formada por arquitetos, designers, gestores de projeto e artesãos especializados.
               </p>
             </div>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Manifesto</p>
+            <p className="mt-3 text-base font-semibold text-white">Luxo é calma, precisão e consistência.</p>
+            <p className="mt-4 text-sm text-white/70">
+              Controlamos todas as etapas para garantir que o resultado final seja fiel ao sonho do cliente: design autoral,
+              materiais nobres e execução sem improvisos.
+            </p>
+            <Button href="/contacto" className="mt-6 w-full justify-center">
+              Falar com a direção
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Missão & Valores */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {/* Missão */}
-            <div className="p-8 rounded-xl border border-[#1CA7A1]/20 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent">
-              <div className="w-12 h-12 rounded-lg bg-[#1CA7A1]/20 flex items-center justify-center mb-4 text-2xl">
-                🎯
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Missão</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Transformar espaços em design de luxo, sem stress. Oferecemos soluções premium com gestão completa, combinando tradição, inovação e tecnologia IA.
-              </p>
-            </div>
-
-            {/* Visão */}
-            <div className="p-8 rounded-xl border border-[#1CA7A1]/20 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent">
-              <div className="w-12 h-12 rounded-lg bg-[#1CA7A1]/20 flex items-center justify-center mb-4 text-2xl">
-                👁️
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Visão</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Ser referência continental em acabamentos premium e design de interiores, reconhecida por qualidade, inovação e excelência consultiva.
-              </p>
-            </div>
-
-            {/* Valores */}
-            <div className="p-8 rounded-xl border border-[#1CA7A1]/20 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent">
-              <div className="w-12 h-12 rounded-lg bg-[#1CA7A1]/20 flex items-center justify-center mb-4 text-2xl">
-                ✨
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Valores</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Qualidade, Inovação, Consultoria Personalizada, Integridade, Compromisso com Excelência e Sustentabilidade Premium.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Diferenciais */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/5 to-[#050608]">
-        <div className="mx-auto max-w-6xl">
+      <section className="border-b border-white/5 bg-midnight py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
           <SectionHeader
-            subtitle="Por que Casa Turca?"
-            title="Nossos Diferenciais"
-            description="O que nos torna especiais no mercado premium de acabamentos"
-            centered
+            eyebrow="Valores"
+            title="Pilares que sustentam cada projeto Casa Turca."
+            description="Trabalhamos de forma consultiva, transparente e artesanal para proteger o seu investimento e elevar a sua qualidade de vida."
+            align="center"
           />
-
-          <div className="grid md:grid-cols-2 gap-12">
-            {[
-              {
-                title: 'Móveis Sob Medida',
-                desc: 'Desenho personalizado em madeira nobre, PVC e pladur. Cada peça é uma obra de arte.',
-              },
-              {
-                title: 'IA Studio',
-                desc: 'Tecnologia proprietária para visualizar designs em minutos. Decisões informadas em tempo real.',
-              },
-              {
-                title: 'Gestão Completa',
-                desc: 'Do conceito à execução. Nós gerenciamos tudo: coordenação, qualidade, prazos, orçamento.',
-              },
-              {
-                title: 'Equipa Elite',
-                desc: 'Arquitetos, designers, artesãos e tecnólogos. Experiência internacional e local.',
-              },
-              {
-                title: 'Materiais Premium',
-                desc: 'Curadoria cuidadosa de mármores, madeiras e metais nobres com certificação de origem.',
-              },
-              {
-                title: 'Atendimento Consultivo',
-                desc: 'Não vendemos. Consultamos. Cada projeto é único e merece atenção dedicada.',
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="flex gap-4 p-6 rounded-lg border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent transition duration-300"
-              >
-                <div className="w-2 h-2 rounded-full bg-[#D4AF37] flex-shrink-0 mt-2" />
-                <div>
-                  <h4 className="text-white font-semibold mb-2">{item.title}</h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-                </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {valores.map((valor) => (
+              <div key={valor.title} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-teal/80">{valor.title}</p>
+                <p className="mt-3 text-white/70">{valor.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative py-20 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-            Conheça nossa equipa
-          </h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Estamos prontos para transformar seu espaço em um design de luxo, sem stress.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/contacto" variant="primary">
-              Agendar Visita
-            </Button>
-            <Button href="/servicos" variant="outline">
-              Explorar Serviços <ArrowRight size={18} />
+      <section className="bg-abyss py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 md:grid-cols-2 md:items-center">
+          <div className="space-y-5">
+            <SectionHeader
+              eyebrow="Diferenciais"
+              title="Porque os clientes de alto padrão confiam em nós."
+              description="Do briefing inicial à entrega final, operamos como guardiões da visão do cliente, garantindo fidelidade estética e conforto absoluto."
+            />
+            <ul className="space-y-3 text-sm text-white/70">
+              <li>• Equipa fixa e treinada internamente, sem subcontratações improvisadas.</li>
+              <li>• IA proprietária para simulações rápidas e decisões assertivas.</li>
+              <li>• Logística de importação e armazenagem para materiais raros.</li>
+              <li>• Relatórios semanais, acompanhamento remoto e visitas agendadas.</li>
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Clientes atendidos</p>
+            <div className="mt-4 grid gap-4 text-white/80 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                <p className="text-xs uppercase tracking-[0.24em] text-teal/70">Residencial</p>
+                <p className="mt-2 text-lg font-semibold text-white">Condomínios premium</p>
+                <p className="mt-2 text-xs text-white/60">Talatona, Morro Bento, Kilamba, Nova Vida.</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                <p className="text-xs uppercase tracking-[0.24em] text-teal/70">Corporativo</p>
+                <p className="mt-2 text-lg font-semibold text-white">Escritórios &amp; retail</p>
+                <p className="mt-2 text-xs text-white/60">Empresas multinacionais, clínicas e boutiques.</p>
+              </div>
+            </div>
+            <Button href="/portfolio" variant="secondary" className="mt-6">
+              Ver projetos recentes
             </Button>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

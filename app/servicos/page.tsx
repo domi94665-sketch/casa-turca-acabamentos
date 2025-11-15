@@ -1,288 +1,197 @@
 import type { Metadata } from 'next';
 import SectionHeader from '@/components/SectionHeader';
 import ServiceCard from '@/components/ServiceCard';
-import Button from '@/components/Button';
-import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/Button';
 
 export const metadata: Metadata = {
-  title: 'Serviços | Casa Turca Acabamentos',
+  title: 'Serviços — Casa Turca Acabamentos',
   description:
-    'Móveis sob medida, design de interiores, instalação, pintura, pavimentação e gestão de obra. Soluções premium de A a Z.',
+    'Conheça os serviços completos de design, mobiliário, pavimento, pintura, eletricidade e gestão de obra da Casa Turca Acabamentos.',
   openGraph: {
-    title: 'Serviços | Casa Turca Acabamentos',
-    description: 'Conheça todos os serviços premium da Casa Turca.',
-    url: 'https://www.casaturca-acabamentos.com/servicos',
+    title: 'Serviços — Casa Turca Acabamentos',
+    description:
+      'Consultoria, produção e execução premium para projetos residenciais e corporativos em Angola.',
+    url: 'https://www.casaturcaacabamentos.com/servicos',
+    siteName: 'Casa Turca Acabamentos',
+    locale: 'pt_PT',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Serviços — Casa Turca Acabamentos',
+    description:
+      'Projetos chave na mão com móveis sob medida, pavimento de alto padrão, pintura premium e eletricidade especializada.',
   },
 };
 
-export default function ServicesPage() {
-  const services = [
-    {
-      id: 'moveis',
-      icon: '📐',
-      title: 'Móveis Sob Medida',
-      desc: 'Desenho personalizado em madeira nobre, PVC e pladur.',
-      features: [
-        'Madeira Premium (mogno, carvalho, wengué)',
-        'PVC e Pladur de Qualidade',
-        'Acabamentos Luxuosos',
-        'Dimensões Personalizadas',
-        'Design Exclusivo',
-      ],
-    },
-    {
-      id: 'design',
-      icon: '🎨',
-      title: 'Design de Interiores',
-      desc: 'Consultoria completa de design, paleta de cores e conceito estético.',
-      features: [
-        'Consultoria Personalizada',
-        'Visualização 3D',
-        'Paleta de Cores Premium',
-        'Seleção de Materiais',
-        'Conceito Estético Único',
-      ],
-    },
-    {
-      id: 'teto',
-      icon: '🏗️',
-      title: 'Teto Falso',
-      desc: 'Instalação profissional de tetos falsos com acabamento premium.',
-      features: [
-        'Gesso e PVC',
-        'Iluminação Integrada',
-        'Acústica Premium',
-        'Instalação Profissional',
-        'Garantia Total',
-      ],
-    },
-    {
-      id: 'pavimento',
-      icon: '🪨',
-      title: 'Pavimentação & Ladrilho',
-      desc: 'Pavimentos em mármores nobres, cerâmica e pedra natural.',
-      features: [
-        'Mármores Certificados',
-        'Cerâmica Premium',
-        'Pedra Natural',
-        'Aplicação Profissional',
-        'Acabamento Perfeito',
-      ],
-    },
-    {
-      id: 'pintura',
-      icon: '🎭',
-      title: 'Pintura Interior & Exterior',
-      desc: 'Pintura profissional com tintas premium e acabamento impecável.',
-      features: [
-        'Tintas Premium',
-        'Cores Personalizadas',
-        'Acabamentos Especiais',
-        'Interior e Exterior',
-        'Garantia de Qualidade',
-      ],
-    },
-    {
-      id: 'eletrica',
-      icon: '⚡',
-      title: 'Instalação Elétrica Básica',
-      desc: 'Instalações elétricas profissionais e seguras.',
-      features: [
-        'Conformidade com Normas',
-        'Segurança Garantida',
-        'Acabamento Premium',
-        'Suporte Técnico',
-        'Certificação',
-      ],
-    },
-    {
-      id: 'gestao',
-      icon: '📋',
-      title: 'Gestão de Obra',
-      desc: 'Gerenciamento completo do seu projeto de ponta a ponta.',
-      features: [
-        'Coordenação Total',
-        'Cronograma Rigoroso',
-        'Controle de Qualidade',
-        'Comunicação Constante',
-        'Orçamento Transparente',
-      ],
-    },
-    {
-      id: 'ia',
-      icon: '🤖',
-      title: 'IA Studio',
-      desc: 'Visualização de designs com inteligência artificial em tempo real.',
-      features: [
-        'Upload de Imagens',
-        'Múltiplas Sugestões',
-        'Estilos Personalizados',
-        'Salve Inspirações',
-        'Integração com Projeto',
-      ],
-    },
-  ];
+const categorias = [
+  {
+    eyebrow: 'Design de interiores',
+    title: 'Conceitos exclusivos desenhados com base na sua rotina.',
+    items: [
+      'Briefing imersivo com mapeamento de estilo de vida',
+      'Moodboards, materiais e cores alinhados à identidade do cliente',
+      'Plantas humanizadas, layout funcional e ergonomia detalhada',
+      'Renderizações 3D e realidade aumentada para aprovação final',
+    ],
+  },
+  {
+    eyebrow: 'Móveis sob medida',
+    title: 'Produção própria para garantir qualidade e prazos.',
+    items: [
+      'Cozinhas, roupeiros, closets e mobiliário solto',
+      'Madeira natural, MDF laqueado, serralharia e estofados premium',
+      'Ferragens importadas e sistemas de iluminação integrada',
+      'Instalação e acabamento final com equipa especializada',
+    ],
+    accent: 'emerald' as const,
+  },
+  {
+    eyebrow: 'Pavimentos & revestimentos',
+    title: 'Soluções resistentes e sofisticadas para cada ambiente.',
+    items: [
+      'Pisos vinílicos, madeira engenheirada e porcelanatos grandes formatos',
+      'Revestimentos 3D, boiserie, microcimento e pedra natural',
+      'Tratamentos acústicos e térmicos específicos',
+      'Nivelamento, impermeabilização e manutenção pós-obra',
+    ],
+    accent: 'gold' as const,
+  },
+  {
+    eyebrow: 'Pintura premium',
+    title: 'Acabamentos impecáveis em interiores e exteriores.',
+    items: [
+      'Pintura decorativa, texturas especiais e efeitos metalizados',
+      'Paleta personalizada com consultoria de cor',
+      'Proteções, correções e preparação completa das superfícies',
+      'Selagem contra humidade e garantia de durabilidade',
+    ],
+  },
+  {
+    eyebrow: 'Eletricidade & iluminação',
+    title: 'Infraestrutura segura e estética iluminada com intenção.',
+    items: [
+      'Projetos elétricos e luminotécnicos assinados por engenheiros',
+      'Instalação de tomadas, automação e sistemas inteligentes',
+      'Luminárias embutidas, perfis de LED e iluminação cênica',
+      'Adequação a normas e certificações de segurança',
+    ],
+    accent: 'emerald' as const,
+  },
+  {
+    eyebrow: 'Gestão total de obra',
+    title: 'Coordenamos cada equipa para entregar a chave na sua mão.',
+    items: [
+      'Planeamento executivo com cronograma visível ao cliente',
+      'Coordenação de fornecedores, compras e logística',
+      'Supervisão diária com relatórios e visitas agendadas',
+      'Checklist de entrega, styling final e pós-obra assistido',
+    ],
+    accent: 'gold' as const,
+  },
+];
 
+const etapas = [
+  {
+    title: 'Visita técnica e diagnóstico',
+    description:
+      'Alinhamos objetivos, prazos e investimento mínimo (500.000 Kz) para garantir o padrão premium Casa Turca.',
+  },
+  {
+    title: 'Projeto executivo & orçamento',
+    description:
+      'Apresentamos design completo, memoriais descritivos e cronograma com fases claras de execução.',
+  },
+  {
+    title: 'Produção, obra e acompanhamento',
+    description:
+      'Executamos mobiliário e acabamentos com equipas próprias e reportes semanais.',
+  },
+  {
+    title: 'Entrega e manutenção',
+    description:
+      'Finalizamos com checklist detalhado, ajustes finos e plano de manutenção personalizada.',
+  },
+];
+
+export default function ServicosPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f1115] via-[#050608] to-[#0b0d10]">
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-20 pb-20 px-6 md:pt-32 md:pb-32">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#1CA7A1]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#1CA7A1]/3 rounded-full blur-3xl" />
-
-        <div className="relative mx-auto max-w-6xl">
-          <div className="space-y-8">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-                Soluções Premium
-              </p>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
-                Serviços Completos
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
-                De móveis sob medida a gestão completa de obra. Todas as soluções que você precisa para transformar seu espaço em design de luxo.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Serviços Grid */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service) => (
-              <ServiceCard
-                key={service.id}
-                icon={service.icon}
-                title={service.title}
-                description={service.desc}
-                features={service.features}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Por que escolher */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/5 to-[#050608]">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader
-            subtitle="Vantagens"
-            title="Por que escolher Casa Turca"
-            centered
-          />
-
-          <div className="grid md:grid-cols-2 gap-12">
-            {[
-              {
-                title: 'Equipa Multidisciplinar',
-                desc: 'Arquitetos, designers, artesãos e tecnólogos trabalhando em harmonia para seu projeto.',
-              },
-              {
-                title: 'Qualidade Garantida',
-                desc: 'Materiais premium com certificação de origem e acabamento impecável em cada detalhe.',
-              },
-              {
-                title: 'Gestão Completa',
-                desc: 'Você não precisa se preocupar com nada. Nós gerenciamos coordenação, qualidade e prazos.',
-              },
-              {
-                title: 'Tecnologia IA',
-                desc: 'Visualize designs em minutos. Tome decisões informadas antes da execução final.',
-              },
-              {
-                title: 'Atendimento Premium',
-                desc: 'Consultoria dedicada, comunicação constante e suporte pós-projeto sempre disponível.',
-              },
-              {
-                title: 'Transparência Total',
-                desc: 'Orçamentos claros, cronogramas realistas e sem surpresas durante a execução.',
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="flex gap-4 p-6 rounded-lg border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 transition duration-300"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#D4AF37] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-                  {idx + 1}
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold mb-2">{item.title}</h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Processo */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader
-            subtitle="Metodologia"
-            title="Nosso Processo"
-            description="4 passos simples para transformar seu espaço"
-            centered
-          />
-
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              {
-                step: '1',
-                title: 'Consulta Inicial',
-                desc: 'Entendemos seus objetivos, estilo e necessidades. Avaliamos o espaço.',
-              },
-              {
-                step: '2',
-                title: 'Design & Visualização',
-                desc: 'Criamos visualizações 3D. Apresentamos opções de materiais e acabamentos.',
-              },
-              {
-                step: '3',
-                title: 'Aprovação & Produção',
-                desc: 'Finalizamos o design. Iniciamos produção de móveis e seleção de materiais.',
-              },
-              {
-                step: '4',
-                title: 'Instalação & Entrega',
-                desc: 'Instalação profissional. Garantia total e suporte pós-projeto.',
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="relative">
-                <div className="flex flex-col h-full">
-                  <div className="w-14 h-14 rounded-full bg-[#1CA7A1] flex items-center justify-center text-white font-bold text-xl mb-6 shadow-lg shadow-[#1CA7A1]/30">
-                    {item.step}
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">{item.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Final */}
-      <section className="relative py-20 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-            Pronto para começar?
-          </h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Entre em contacto conosco e descubra como podemos transformar seu espaço em um design de luxo.
+    <main className="bg-night text-white">
+      <section className="border-b border-white/5 bg-midnight/90">
+        <div className="mx-auto max-w-5xl space-y-6 px-4 py-20 md:py-24 text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/60">Serviços Casa Turca</p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            Do conceito à entrega. Cada detalhe sob o nosso controlo.
+          </h1>
+          <p className="mx-auto max-w-3xl text-sm text-white/70 sm:text-base">
+            Combinamos design autoral, produção própria e gestão total de obra para entregar ambientes prontos para viver ou receber clientes. Um processo consultivo para pessoas exigentes.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/contacto" variant="primary">
-              Agendar Consulta <ArrowRight size={18} />
-            </Button>
-            <Button href="/ia-studio" variant="secondary">
-              Experimentar IA Studio
-            </Button>
+          <Button href="/contacto" className="justify-center">Solicitar proposta detalhada</Button>
+        </div>
+      </section>
+
+      <section className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeader
+            eyebrow="Categorias"
+            title="Cada disciplina conduzida pela nossa equipa especializada."
+            description="Selecionamos materiais nobres, supervisionamos cada instalação e entregamos tudo pronto, com garantia Casa Turca."
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {categorias.map((categoria) => (
+              <ServiceCard key={categoria.eyebrow} {...categoria} />
+            ))}
           </div>
         </div>
       </section>
-    </div>
+
+      <section className="border-b border-white/5 bg-midnight py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeader
+            eyebrow="Processo premium"
+            title="Transparência total, do primeiro contacto ao pós-obra."
+            description="Operamos com metodologia concierge e softwares de acompanhamento para que cada cliente saiba o que está a acontecer em tempo real."
+            align="center"
+          />
+          <div className="mt-12 grid gap-6 md:grid-cols-4">
+            {etapas.map((etapa, index) => (
+              <div key={etapa.title} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-center text-sm text-white/70">
+                <span className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-teal/40 bg-teal/10 text-[11px] font-semibold uppercase tracking-[0.2em] text-teal">
+                  0{index + 1}
+                </span>
+                <p className="text-base font-semibold text-white">{etapa.title}</p>
+                <p className="mt-3 text-xs text-white/60">{etapa.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-abyss py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.2fr,1fr] md:items-center">
+          <div className="space-y-6">
+            <SectionHeader
+              eyebrow="Investimento"
+              title="Projetos a partir de 500.000 Kz garantem padrão Casa Turca."
+              description="Esse valor mínimo permite que selecionemos materiais, equipas e tecnologia que sustentam a entrega premium."
+            />
+            <ul className="space-y-3 text-sm text-white/70">
+              <li>• Planeamos o investimento por fase para otimizar fluxo financeiro.</li>
+              <li>• Negociamos diretamente com fornecedores e marcas internacionais.</li>
+              <li>• Garantimos margens de segurança no cronograma e na logística.</li>
+            </ul>
+            <Button href="/portfolio" variant="secondary">Ver resultados alcançados</Button>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Kit de iniciação</p>
+            <p className="mt-3 text-base font-semibold text-white">Receba o guia Casa Turca para preparar o seu projeto.</p>
+            <p className="mt-3 text-xs text-white/60">
+              Dicas de preparação do espaço, checklist de briefing e plano de recolha de referências para acelerar a fase de design.
+            </p>
+            <Button href="/contacto" className="mt-6 w-full justify-center">Solicitar kit</Button>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

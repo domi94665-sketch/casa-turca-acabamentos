@@ -1,264 +1,154 @@
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import SectionHeader from '@/components/SectionHeader';
-import Button from '@/components/Button';
-import { Upload, Zap, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/Button';
+
+export const metadata: Metadata = {
+  title: 'IA Studio — Casa Turca Acabamentos',
+  description:
+    'Envie uma foto do seu espaço e receba sugestões premium com a IA Studio da Casa Turca. Design personalizado com tecnologia proprietária.',
+  openGraph: {
+    title: 'IA Studio — Casa Turca Acabamentos',
+    description:
+      'Ferramenta exclusiva para simular ideias de design e avançar para execução Casa Turca com segurança.',
+    url: 'https://www.casaturcaacabamentos.com/ia-studio',
+    siteName: 'Casa Turca Acabamentos',
+    locale: 'pt_PT',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IA Studio — Casa Turca Acabamentos',
+    description:
+      'Simule variações de design com IA e avance para um projeto chave na mão com a Casa Turca.',
+  },
+};
+
+const etapas = [
+  {
+    title: 'Upload do espaço',
+    description:
+      'Envie fotos e medidas básicas. A equipa orienta como capturar ângulos que permitam um diagnóstico completo.',
+  },
+  {
+    title: 'Análise com IA + curadoria humana',
+    description:
+      'A IA sugere estilos e materiais com base nas referências. Os nossos arquitetos refinam e aplicam o olhar Casa Turca.',
+  },
+  {
+    title: 'Entrega de variações',
+    description:
+      'Receba até três propostas com imagens renderizadas, paletas cromáticas e estimativas de investimento.',
+  },
+  {
+    title: 'Transição para obra',
+    description:
+      'Se aprovar, transformamos a proposta em projeto executivo e assumimos toda a execução com gestão chave na mão.',
+  },
+];
 
 export default function IAStudioPage() {
-  const [isDragging, setIsDragging] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const files = e.dataTransfer.files;
-    if (files && files[0]) {
-      handleImageSelect(files[0]);
-    }
-  };
-
-  const handleImageSelect = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setImage(e.target?.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      handleImageSelect(e.target.files[0]);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f1115] via-[#050608] to-[#0b0d10]">
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-20 pb-20 px-6 md:pt-32 md:pb-32">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#1CA7A1]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#1CA7A1]/3 rounded-full blur-3xl" />
-
-        <div className="relative mx-auto max-w-6xl">
-          <div className="space-y-8">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
-                Tecnologia IA
-              </p>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
-                IA Studio
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
-                Carregue uma foto do seu espaço e deixe a inteligência artificial gerar sugestões de design com acabamentos premium em segundos.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Upload Section */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-4xl">
-          {!image ? (
-            <div
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              className={`relative p-12 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer ${
-                isDragging
-                  ? 'border-[#1CA7A1] bg-[#1CA7A1]/10'
-                  : 'border-[#1CA7A1]/30 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:border-[#1CA7A1]/50'
-              }`}
-            >
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleInputChange}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
-              <div className="text-center">
-                <div className="inline-block p-4 rounded-full bg-[#1CA7A1]/20 mb-4">
-                  <Upload size={32} className="text-[#1CA7A1]" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-2">
-                  Carregue uma imagem do seu espaço
-                </h3>
-                <p className="text-gray-400 mb-4">
-                  Arraste e solte uma foto ou clique para selecionar
-                </p>
-                <p className="text-xs text-gray-500">
-                  Formatos aceitos: JPG, PNG, WebP (máx 10MB)
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="relative rounded-2xl overflow-hidden border border-[#1CA7A1]/30">
-                <img src={image} alt="Espaço carregado" className="w-full h-auto" />
-                <button
-                  onClick={() => setImage(null)}
-                  className="absolute top-4 right-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full text-sm transition"
-                >
-                  Trocar Imagem
-                </button>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-white mb-3">
-                    Estilo Preferido
-                  </label>
-                  <select className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white focus:border-[#1CA7A1] focus:outline-none transition">
-                    <option>Moderno Luxo</option>
-                    <option>Clássico Elegante</option>
-                    <option>Minimalista Premium</option>
-                    <option>Contemporâneo</option>
-                    <option>Vintage Refinado</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-white mb-3">
-                    Paleta de Cores
-                  </label>
-                  <select className="w-full px-4 py-3 rounded-lg bg-[#0f1115] border border-[#1CA7A1]/20 text-white focus:border-[#1CA7A1] focus:outline-none transition">
-                    <option>Cores Quentes</option>
-                    <option>Cores Frias</option>
-                    <option>Tons Neutros</option>
-                    <option>Cores Vibrantes</option>
-                    <option>Monocromático</option>
-                  </select>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  alert('Em desenvolvimento! Integração com IA em breve.');
-                }}
-                className="w-full px-8 py-4 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white font-semibold rounded-lg transition duration-300 shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30 flex items-center justify-center gap-2"
-              >
-                <Zap size={20} />
-                Gerar Sugestões com IA
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="relative py-24 px-6 bg-gradient-to-r from-[#0f1115] via-[#1CA7A1]/5 to-[#050608]">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader
-            subtitle="Recursos"
-            title="O que o IA Studio oferece"
-            centered
-          />
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Upload Rápido',
-                desc: 'Carregue sua foto em segundos. Processo simples e intuitivo.',
-                icon: '⚡',
-              },
-              {
-                title: 'Sugestões em Tempo Real',
-                desc: 'Visualize múltiplas opções de design geradas por IA em instantes.',
-                icon: '🤖',
-              },
-              {
-                title: 'Múltiplos Estilos',
-                desc: 'Explore diferentes estilos: Moderno, Clássico, Minimalista e mais.',
-                icon: '🎨',
-              },
-              {
-                title: 'Paletas Personalizadas',
-                desc: 'Escolha cores que combinam com sua personalidade e espaço.',
-                icon: '🎭',
-              },
-              {
-                title: 'Salve Inspirações',
-                desc: 'Guarde seus designs favoritos para referência futura.',
-                icon: '💾',
-              },
-              {
-                title: 'Compartilhe Facilmente',
-                desc: 'Envie suas inspirações para nossos designers executarem.',
-                icon: '📤',
-              },
-            ].map((feature, idx) => (
-              <div
-                key={idx}
-                className="p-8 rounded-xl border border-[#1CA7A1]/20 hover:border-[#1CA7A1]/50 bg-gradient-to-br from-[#1CA7A1]/5 to-transparent hover:from-[#1CA7A1]/10 transition duration-300"
-              >
-                <div className="text-3xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Como Funciona */}
-      <section className="relative py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader subtitle="Processo" title="Como Funciona" centered />
-
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { step: '1', title: 'Upload', desc: 'Carregue uma foto do seu espaço' },
-              { step: '2', title: 'Escolha', desc: 'Selecione estilo e paleta de cores' },
-              { step: '3', title: 'Gere', desc: 'IA cria múltiplas sugestões' },
-              { step: '4', title: 'Implemente', desc: 'Contratar designer para executar' },
-            ].map((item, idx) => (
-              <div key={idx} className="text-center">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1CA7A1] to-[#D4AF37] flex items-center justify-center text-white font-bold text-xl mb-4 mx-auto">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Próximo Passo */}
-      <section className="relative py-20 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-            Gostou da Sugestão?
-          </h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Contrate nossos designers para transformar sua visualização em realidade.
+    <main className="bg-night text-white">
+      <section className="border-b border-white/5 bg-[radial-gradient(circle_at_top,_rgba(28,167,161,0.18),_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(212,175,55,0.12),_transparent_65%)]">
+        <div className="mx-auto max-w-5xl space-y-6 px-4 py-20 text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/60">Casa Turca • IA Studio</p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            IA que entende o seu espaço e traduz o seu estilo.
+          </h1>
+          <p className="mx-auto max-w-3xl text-sm text-white/70 sm:text-base">
+            Combine inteligência artificial com curadoria humana para explorar possibilidades antes de iniciar a obra. Ideias premium para quem exige segurança antes de investir.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/servicos"
-              className="px-8 py-4 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white font-semibold rounded-full transition duration-300 shadow-lg shadow-[#1CA7A1]/20 hover:shadow-xl hover:shadow-[#1CA7A1]/30 inline-flex items-center gap-2"
-            >
-              Explorar Serviços <ArrowRight size={18} />
-            </Link>
-            <Link
-              href="/contacto"
-              className="px-8 py-4 border border-[#1CA7A1] text-[#1CA7A1] hover:bg-[#1CA7A1]/10 font-semibold rounded-full transition duration-300 inline-flex items-center gap-2"
-            >
-              Agendar Consulta
-            </Link>
+            <Button href="/contacto" className="justify-center">Solicitar acesso ao beta</Button>
+            <Button href="/servicos" variant="ghost" className="text-white/80 hover:text-white">
+              Conhecer execução completa
+            </Button>
           </div>
         </div>
       </section>
-    </div>
+
+      <section className="border-b border-white/5 bg-abyss py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.1fr,1fr] md:items-center">
+          <div className="space-y-6">
+            <SectionHeader
+              eyebrow="Como funciona"
+              title="Tecnologia proprietária aliada à nossa equipa de design."
+              description="A IA Studio foi treinada com projetos reais Casa Turca e aprende continuamente com o feedback dos nossos arquitetos."
+            />
+            <ul className="space-y-3 text-sm text-white/70">
+              <li>• Suporte humano durante todo o processo, por chat ou videochamada.</li>
+              <li>• IA foca no estilo do cliente, nas proporções do espaço e no orçamento definido.</li>
+              <li>• Resultados em até 72 horas úteis com materiais disponíveis em Angola.</li>
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Planos disponíveis</p>
+            <ul className="mt-5 space-y-4 text-xs text-white/60">
+              <li>
+                <span className="text-white">Essencial</span>: 1 divisão, 2 variações de design, relatório resumido.
+              </li>
+              <li>
+                <span className="text-white">Completo</span>: até 4 divisões, 3 variações, video-call de apresentação.
+              </li>
+              <li>
+                <span className="text-white">Executivo</span>: integração direta com equipa Casa Turca e orçamento detalhado.
+              </li>
+            </ul>
+            <Button href="/contacto" className="mt-6 w-full justify-center">
+              Falar com especialista em IA
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/5 bg-midnight py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeader
+            eyebrow="Etapas"
+            title="Da simulação digital ao projeto executado."
+            description="Em quatro passos orientamos a evolução do seu projeto com clareza e sofisticação."
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-4">
+            {etapas.map((etapa, index) => (
+              <div key={etapa.title} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/70">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/40">Passo 0{index + 1}</span>
+                  <span className="grid h-8 w-8 place-items-center rounded-full border border-teal/40 bg-teal/10 text-[11px] font-semibold text-teal">
+                    {index + 1}
+                  </span>
+                </div>
+                <p className="mt-4 text-base font-semibold text-white">{etapa.title}</p>
+                <p className="mt-2 text-xs text-white/60">{etapa.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-abyss py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.2fr,1fr] md:items-center">
+          <div className="space-y-6">
+            <SectionHeader
+              eyebrow="Próximo passo"
+              title="Pronto para transformar as ideias em realidade?"
+              description="Após a aprovação da variação escolhida, a equipa Casa Turca assume todo o processo executivo e entrega o espaço chave na mão."
+            />
+            <Button href="/contacto">Agendar reunião de alinhamento</Button>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-xs text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-teal/80">Checklist de envio</p>
+            <ul className="mt-4 space-y-2">
+              <li>• Fotos do ambiente (mínimo 3 ângulos).</li>
+              <li>• Medidas aproximadas (largura, comprimento, pé-direito).</li>
+              <li>• Referências do que gosta (Pinterest, Instagram, etc.).</li>
+              <li>• Estimativa de orçamento e prazo desejado.</li>
+            </ul>
+            <p className="mt-4 text-[11px] text-white/55">
+              Com estas informações, conseguimos gerar simulações fiéis à realidade da sua casa ou empresa.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
