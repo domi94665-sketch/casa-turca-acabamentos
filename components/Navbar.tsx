@@ -3,14 +3,16 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { Menu, X } from 'lucide-react';
 
 const links = [
-  { href: '/', label: 'Início' },
-  { href: '/portfolio', label: 'Portefólio' },
-  { href: '/designer-ia', label: 'Designer IA' },
-  { href: '/ferramenta-ia', label: 'Ferramenta IA' },
-  { href: '/contactos', label: 'Contactos' },
+  { href: '/', label: 'Home' },
+  { href: '/sobre', label: 'Sobre' },
+  { href: '/servicos', label: 'Serviços' },
+  { href: '/portfolio', label: 'Portfólio' },
+  { href: '/ia-studio', label: 'IA Studio' },
+  { href: '/parceiros', label: 'Parceiros' },
+  { href: '/contacto', label: 'Contacto' },
 ];
 
 export default function Navbar() {
@@ -18,65 +20,71 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#f8f7f4]/90 backdrop-blur border-b border-gold/10">
+    <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#0f1115] via-[#0f1115]/95 to-[#0f1115]/80 backdrop-blur-md border-b border-[#1CA7A1]/10">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span
-            className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-gold via-[#f6d67e] to-gold text-sm font-semibold text-charcoal shadow"
-            aria-hidden
-          >
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1CA7A1] to-[#D4AF37] flex items-center justify-center font-bold text-white">
             CT
-          </span>
-          <span className="font-serif text-xl tracking-wide text-charcoal">
-            A Casa Turca
-          </span>
+          </div>
+          <div className="hidden sm:block">
+            <p className="text-sm font-bold text-white">Casa Turca</p>
+            <p className="text-xs text-[#1CA7A1]">Acabamentos</p>
+          </div>
         </Link>
+
+        {/* Desktop Navigation */}
         <button
-          className="rounded-full border border-charcoal/10 p-2 text-charcoal transition hover:border-gold hover:text-gold lg:hidden"
-          aria-label="Abrir menu"
-          onClick={() => setOpen((prev) => !prev)}
+          className="lg:hidden text-white p-2"
+          aria-label="Menu"
+          onClick={() => setOpen(!open)}
         >
-          {open ? <FiX className="h-5 w-5" /> : <FiMenu className="h-5 w-5" />}
+          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
-        <ul className="hidden items-center gap-8 text-sm font-medium uppercase tracking-[0.18em] text-charcoal lg:flex">
+
+        <ul className="hidden items-center gap-8 text-sm font-semibold text-gray-300 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`group relative pb-2 transition-colors hover:text-gold ${
-                  pathname === link.href ? 'text-gold' : ''
+                className={`relative pb-2 transition-colors duration-300 ${
+                  pathname === link.href ? 'text-[#1CA7A1]' : 'hover:text-[#1CA7A1]'
                 }`}
               >
                 {link.label}
                 <span
-                  className={`absolute inset-x-0 -bottom-1 h-[2px] origin-left scale-x-0 bg-gold transition-transform duration-300 ${
-                    pathname === link.href ? 'scale-x-100' : 'group-hover:scale-x-100'
+                  className={`absolute inset-x-0 -bottom-1 h-[2px] bg-[#1CA7A1] transition-transform duration-300 origin-left ${
+                    pathname === link.href ? 'scale-x-100' : 'scale-x-0 hover:scale-x-100'
                   }`}
                   aria-hidden
                 />
               </Link>
             </li>
           ))}
-          <li>
-            <Link
-              href="/designer-ia"
-              className="rounded-full border border-gold bg-gold px-4 py-2 text-xs font-semibold text-charcoal shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              Consultoria Premium
-            </Link>
-          </li>
         </ul>
+
+        {/* CTA Button */}
+        <Link
+          href="/contacto"
+          className="hidden lg:block px-6 py-2 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white text-sm font-semibold rounded-full transition duration-300 shadow-lg shadow-[#1CA7A1]/20"
+        >
+          Agendar Visita
+        </Link>
       </nav>
+
+      {/* Mobile Navigation */}
       {open && (
-        <div className="border-t border-gold/10 bg-[#f8f7f4]/95 backdrop-blur lg:hidden">
-          <ul className="space-y-2 px-6 py-4 text-sm uppercase tracking-[0.2em] text-charcoal">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0f1115] border-b border-[#1CA7A1]/10">
+          <ul className="space-y-2 px-6 py-6 text-sm font-semibold text-gray-300">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`block rounded-md px-3 py-2 transition hover:bg-gold/10 hover:text-gold ${
-                    pathname === link.href ? 'text-gold' : ''
+                  className={`block px-3 py-2 rounded-md transition duration-300 ${
+                    pathname === link.href
+                      ? 'bg-[#1CA7A1]/20 text-[#1CA7A1]'
+                      : 'hover:bg-[#1CA7A1]/10 hover:text-[#1CA7A1]'
                   }`}
                 >
                   {link.label}
@@ -85,11 +93,11 @@ export default function Navbar() {
             ))}
             <li>
               <Link
-                href="/designer-ia"
+                href="/contacto"
                 onClick={() => setOpen(false)}
-                className="block rounded-full border border-gold bg-gold px-4 py-2 text-center text-xs font-semibold text-charcoal shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="block w-full px-6 py-2 bg-[#1CA7A1] hover:bg-[#1CA7A1]/90 text-white text-sm font-semibold rounded-full text-center transition duration-300 mt-4"
               >
-                Consultoria Premium
+                Agendar Visita
               </Link>
             </li>
           </ul>

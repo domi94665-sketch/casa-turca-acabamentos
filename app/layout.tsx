@@ -16,24 +16,40 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'A Casa Turca Acabamentos',
+  title: 'Casa Turca Acabamentos | Design Premium & Interiores de Luxo',
   description:
-    'Atelier de acabamentos de luxo em Luanda. Projetos exclusivos com assinatura turca e tecnologia de ponta.',
-  metadataBase: new URL('https://www.acasaturcaacabamentos.com'),
+    'Transformamos espaços em design de luxo, sem stress. Móveis sob medida, design de interiores, instalação profissional e IA Studio em Luanda, Angola.',
+  keywords: [
+    'acabamentos premium',
+    'design de interiores',
+    'móveis sob medida',
+    'Luanda',
+    'Angola',
+    'design luxo',
+  ],
+  metadataBase: new URL('https://www.casaturca-acabamentos.com'),
   openGraph: {
-    title: 'A Casa Turca Acabamentos',
+    title: 'Casa Turca Acabamentos | Design Premium & Interiores de Luxo',
     description:
-      'Acabamentos de luxo que combinam tradição turca e inovação tecnológica.',
-    url: 'https://www.acasaturcaacabamentos.com',
-    siteName: 'A Casa Turca Acabamentos',
+      'Transformamos espaços em design de luxo, sem stress. Acabamentos premium, design inteligente, gestão total de obra.',
+    url: 'https://www.casaturca-acabamentos.com',
+    siteName: 'Casa Turca Acabamentos',
     locale: 'pt_AO',
     type: 'website',
+    images: [
+      {
+        url: 'https://www.casaturca-acabamentos.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Casa Turca Acabamentos - Design Premium',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'A Casa Turca Acabamentos',
+    title: 'Casa Turca Acabamentos | Design Premium',
     description:
-      'Acabamentos de luxo que combinam tradição turca e inovação tecnológica.',
+      'Transformamos espaços em design de luxo, sem stress. Acabamentos premium em Luanda.',
   },
 };
 
@@ -44,10 +60,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="bg-[#f8f7f4] text-charcoal">
+      <head>
+        <meta name="theme-color" content="#1CA7A1" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </head>
+      <body className="bg-[#0f1115] text-gray-300">
         <div className="flex min-h-screen flex-col">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 pt-20">{children}</main>
           <Footer />
         </div>
       </body>
