@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html,
 body {
-  font-family: theme('fontFamily.sans');
-  background-color: #f8f7f4;
-  color: theme('colors.charcoal');
   min-height: 100%;
+  background-color: #0f1115;
+  color: #e8edf6;
+  font-family: theme('fontFamily.sans');
 }
 
 a {
@@ -20,7 +20,7 @@ a {
 }
 
 ::selection {
-  background-color: theme('colors.turquoise');
+  background-color: rgba(28, 167, 161, 0.35);
   color: #ffffff;
 }
 
@@ -32,7 +32,7 @@ a {
   h5,
   h6 {
     font-family: theme('fontFamily.serif');
-    color: theme('colors.charcoal');
+    color: #ffffff;
   }
 }
 
